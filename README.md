@@ -1,3 +1,3 @@
 # JED-Quorum
-Doctor-patient management system. In the cloud. 
+Doctor-patient management system. In the cloud. <br/>
 ![org_logo](http://www.jimspestcontrol.com.au/wp-content/uploads/2016/07/Jims-Termite-and-Pest-Control-Team-313x390.gif)
