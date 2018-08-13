@@ -40,6 +40,7 @@
 </template>
 
 <script>
+    import {login} from '../../lib/auth/auth';
     export default {
         name: "LoginForm",
         data() {
@@ -55,7 +56,11 @@
         methods:{
           login: () => {
             // TODO: Add form validation before submit and error highlighting.
-            console.log("logging in...");
+            login(this.username, this.password)
+              .then((res) => {
+                console.log("We should be getting a response here: ", res);
+              })
+              .catch((err) => { console.log("oopsies. Something went wrong... ", err); })
           }
         }
     }
