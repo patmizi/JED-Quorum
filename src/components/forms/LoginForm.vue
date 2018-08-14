@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import {login} from '../../lib/auth/auth';
+    import {login} from '../../lib/auth';
     export default {
         name: "LoginForm",
         data() {

@@ -1,6 +1,6 @@
 import GoTrue from 'gotrue-js';
 
-auth = new GoTrue({
+export const auth = new GoTrue({
   APIUrl: "https://quorum.netlify.com/.netlify/identity",
   audience: "",
   setCookie: false //  TODO: Experiment with cookies
@@ -26,8 +26,9 @@ auth = new GoTrue({
  * @param password
  * @returns {Promise<void>}
  */
-export function register(email, password) {
-  return auth.signup(email, password, {});
+export function register(email, password, data) {
+  if(!data) data = {};
+  return auth.signup(email, password, data);
 }
 
 
