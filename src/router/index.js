@@ -1,9 +1,10 @@
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import Vue from 'vue'
 import Router from 'vue-router'
-import LoginPage from '../components/pages/LoginPage'
+import LoginContainer from '../components/pages/LoginPage'
 import WelcomePage from '../components/pages/WelcomePage'
-import RegistrationPage from '../components/pages/RegistrationPage';
+import RegistrationPage from '../components/pages/RegistrationPage'
+import AccountConfirmationPage from '../components/pages/AccountConfirmationPage';
 
 Vue.use(Router)
 
@@ -17,12 +18,17 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: LoginPage
+      component: LoginContainer
     },
     {
-      path: 'register',
+      path: '/register',
       name: 'Register',
       component: RegistrationPage
+    },
+    {
+      path: '/confirmation_token=*',
+      name: 'Account Confirmation',
+      component: AccountConfirmationPage
     }
   ]
 })

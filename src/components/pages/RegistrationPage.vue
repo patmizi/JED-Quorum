@@ -1,17 +1,14 @@
 <template>
-    <div>PLACEHOLDER TEXT</div>
+    <div>
+      <RegistrationForm></RegistrationForm>
+    </div>
 </template>
 
 <script>
+    import RegistrationForm from '../forms/RegistrationForm';
     export default {
       name: "RegistrationPage",
-      components: {
-      },
-      data() {
-        return {
-
-        }
-      },
+      components: {RegistrationForm}
     }
 </script>
 
