@@ -1,5 +1,5 @@
 <template>
-    <v-form v-model="valid">
+  <v-form>
       <v-text-field
         v-model="email"
       ></v-text-field>
@@ -7,7 +7,7 @@
         v-model="password"
       ></v-text-field>
       <v-btn @click="signUp">Register</v-btn>
-    </v-form>
+  </v-form>
 </template>
 
 <script>
@@ -25,7 +25,7 @@
           }
         },
         methods: {
-          signUp: () => {
+          signUp() {
             console.log("Registering account with credentials: ", this.email, this.password);
             register(this.email, this.password, {})
               .then((res) => {
