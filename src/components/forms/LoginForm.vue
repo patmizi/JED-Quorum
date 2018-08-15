@@ -53,9 +53,13 @@
             }
           }
         },
+        mounted() {
+          console.log("printing current store: ", this.$store);
+        },
         methods:{
-          login: () => {
+          login() {
             // TODO: Add form validation before submit and error highlighting.
+            console.log("Logging in with credentials: ", this.username, this.password);
             login(this.username, this.password)
               .then((res) => {
                 console.log("We should be getting a response here: ", res);
