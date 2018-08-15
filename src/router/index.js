@@ -5,8 +5,9 @@ import LoginContainer from '../components/pages/LoginPage'
 import WelcomePage from '../components/pages/WelcomePage'
 import RegistrationPage from '../components/pages/RegistrationPage'
 import AccountConfirmationPage from '../components/pages/AccountConfirmationPage';
+import DashboardPage from '../components/pages/DashboardPage';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
@@ -29,6 +30,11 @@ export default new Router({
       path: '/confirmation_token=*',
       name: 'Account Confirmation',
       component: AccountConfirmationPage
+    },
+    {
+      path: '/dashboard',
+      name: 'Account Dashboard',
+      component: DashboardPage
     }
   ]
 })

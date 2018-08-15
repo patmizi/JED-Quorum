@@ -29,7 +29,7 @@
                 @click:append="showPassword = !showPassword"
               ></v-text-field>
               <v-card-actions>
-                <v-btn primary large block @click="login">Login</v-btn>
+                <v-btn primary large block @click="handleLogin">Login</v-btn>
               </v-card-actions>
             </v-form>
           </v-card>
@@ -41,6 +41,8 @@
 
 <script>
     import {login} from '../../lib/auth';
+    import { mapState, mapActions } from 'vuex'
+
     export default {
         name: "LoginForm",
         data() {
@@ -57,16 +59,24 @@
           console.log("printing current store: ", this.$store);
         },
         methods:{
-          login() {
+          ...mapActions('authentication', ['login', 'logout']),
+          handleLogin() {
             // TODO: Add form validation before submit and error highlighting.
             console.log("Logging in with credentials: ", this.username, this.password);
-            login(this.username, this.password)
-              .then((res) => {
-                console.log("We should be getting a response here: ", res);
-              })
-              .catch((err) => { console.log("oopsies. Something went wrong... ", err); })
+            this.login({
+              username: this.username,
+              password: this.password
+            });
+            // login(this.username, this.password)
+            //   .then((res) => {
+            //     console.log("We should be getting a response here: ", res);
+            //   })
+            //   .catch((err) => { console.log("oopsies. Something went wrong... ", err); })
           }
-        }
+        },
+        computed: {
+          ...mapState('authentication', ['status'])
+        },
     }
 </script>
 

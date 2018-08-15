@@ -1,4 +1,5 @@
 import * as authService from '../lib/auth';
+import router from '../router';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user
@@ -16,6 +17,7 @@ export const authentication = {
         .then((res) => {
           console.log('We have now logged in with res: ', res);
           commit('loginSuccess', res);
+          router.push('dashboard');
         })
         .catch((err) => {
           console.log("Could not log in: ", err);
