@@ -16,6 +16,7 @@
             .then((res) => {
               console.log("Successfully confirmed the account: ", res);
               this.identityServerResponse = res;
+              this.$router.push('dashboard');
             })
             .catch((err) => {
               console.log("An error occurred when confirming the token: ", err);
