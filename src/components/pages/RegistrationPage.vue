@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <v-app>
       <RegistrationForm
         ref="registerForm"
       ></RegistrationForm>
       <v-btn @click="registerAccount">Register</v-btn>
-    </div>
+    </v-app>
 </template>
 
 <script>
