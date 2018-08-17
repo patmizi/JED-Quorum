@@ -8,7 +8,18 @@ import router from './router';
 import { store } from './_store';
 
 Vue.config.productionTip = false;
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  theme: {
+    primary: "#2196F3",
+    // primary: "#f44336",
+    secondary: "#03A9F4",
+    accent: "#2196F3",
+    error: "#f44336",
+    warning: "#ffeb3b",
+    info: "#2196f3",
+    success: "#4caf50"
+  }
+});
 
 /* eslint-disable no-new */
 new Vue({
