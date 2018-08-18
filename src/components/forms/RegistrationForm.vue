@@ -44,6 +44,8 @@
 </template>
 
 <script>
+    import { emailRegex } from "../../lib/helpers/constants";
+
     export default {
       name: "RegistrationForm",
       data() {
@@ -56,11 +58,10 @@
             lastName: "",
             showPassword1: false,
             showPassword2: false,
-            emailRegex: /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
             rules: {
               required: value => !!value || 'Required.',
               min: v => v.length >= 8 || 'Min 8 characters',
-              validEmail: e => this.emailRegex.test(e) || 'Please enter a valid email address',
+              validEmail: e => emailRegex.test(e) || 'Please enter a valid email address',
               matchingPasswords: () => {
                 if (this.password.length <= 0 || this.password2.length <= 0) return true;
                 return this.password === this.password2 || 'Passwords don\'t match';
