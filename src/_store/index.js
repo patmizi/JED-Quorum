@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { authentication } from "./jwt-auth.module";
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
+  // plugins: [createPersistedState()],
   modules: {
     authentication
   }

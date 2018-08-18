@@ -118,6 +118,7 @@ export function getJwt() {
   return auth.currentUser().jwt();
 }
 
-export function logout() {
+export function logout(user) {
+  console.log("auth current user: ", auth.currentUser());
   return auth.currentUser().logout();
 }

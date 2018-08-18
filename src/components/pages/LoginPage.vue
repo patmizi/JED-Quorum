@@ -14,7 +14,7 @@
             </v-card-title>
             <LoginForm ref="loginForm"></LoginForm>
             <v-card-actions>
-              <v-btn>LOGIN</v-btn>
+              <v-btn @click="handleLogin" color="primary">LOGIN</v-btn>
             </v-card-actions>
           </v-card>
         </v-container>
@@ -38,14 +38,17 @@
         },
         methods: {
           ...mapActions('authentication', ['login', 'logout']),
-          login() {
+          handleLogin() {
             let formData = this.$refs.loginForm.getFormValue();
-            console.login("logging in with form data: ", formData);
-            if(formData){
-              this.login({
-                username: this.username,
-                password: this.password
-              });
+            console.log("logging in with form data: ", formData);
+            if(formData && formData.username && formData.password){
+              this.$store.dispatch('authentication/login', {
+                username: formData.username,
+                password: formData.password
+              }).catch((err) => {
+                console.log("Error when logging in: ", err);
+                this.$refs.loginForm.failLogin();
+              })
             }
           }
         },
