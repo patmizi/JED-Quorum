@@ -20,7 +20,7 @@
                     ></RegistrationForm>
                     <br>
                     <v-card-actions>
-                      <v-btn flat color="primary">Sign in instead</v-btn>
+                      <v-btn flat color="primary" @click="changePage('login')">Sign in instead</v-btn>
                       <v-spacer></v-spacer>
                       <v-btn @click="registerAccount" color="primary">Sign Up</v-btn>
                     </v-card-actions>
@@ -53,6 +53,9 @@
               })
               .catch((err) => { console.log("Error signing up: ", err); })
           }
+        },
+        changePage(relativeUrl) {
+          this.$router.push(relativeUrl);
         }
       }
     }

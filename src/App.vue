@@ -2,8 +2,8 @@
   <span>
     <div id="app">
       <router-view/>
+      <v-app style="height: 0px; width: 0px"></v-app>
     </div>
-    <v-app></v-app>
   </span>
 </template>
 
