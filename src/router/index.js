@@ -47,6 +47,10 @@ export default new Router({
       name: 'Account Dashboard',
       component: DashboardPage,
       beforeEnter: authenticationCheck
+    },
+    {
+      path: '*', //default route
+      redirect: 'dashboard'
     }
   ]
 })
