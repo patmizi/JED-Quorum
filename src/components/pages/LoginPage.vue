@@ -36,6 +36,11 @@
           return {
           }
         },
+        mounted() {
+          if(!!this.$store.state.authentication.user){
+            this.$router.push('dashboard');
+          }
+        },
         methods: {
           ...mapActions('authentication', ['login', 'logout']),
           handleLogin() {

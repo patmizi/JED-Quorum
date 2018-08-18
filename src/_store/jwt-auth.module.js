@@ -9,10 +9,6 @@ const initialState = user
 export const authentication = {
   namespaced: true,
   state: initialState,
-  getters: {
-    isAuthenticated: state => !!state.token,
-    authStatus: state => state.status,
-  },
   actions: {
     login({dispatch, commit}, {username, password}) {
       commit('loginRequest', {username});
