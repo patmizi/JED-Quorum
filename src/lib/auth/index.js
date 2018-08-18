@@ -24,6 +24,7 @@ export const auth = new GoTrue({
  * Register a user with an email and password
  * @param email
  * @param password
+ * @param data
  * @returns {Promise<void>}
  */
 export function register(email, password, data) {
@@ -79,7 +80,7 @@ export function confirm(token) {
  * @returns {Promise<User>}
  */
 export function login(email, password) {
-  return auth.login(email, password);
+  return auth.login(email, password, true);
 }
 
 /**
