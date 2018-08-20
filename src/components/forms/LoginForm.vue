@@ -4,6 +4,7 @@
       ref="usernameField"
       v-model="username"
       :rules="[rules.required, rules.validEmail]"
+      :disabled="sending"
       prepend-icon="person"
       name="Username"
       label="Username"
@@ -13,6 +14,7 @@
       ref="passwordField"
       v-model="password"
       :rules="[rules.required]"
+      :disabled="sending"
       prepend-icon="lock"
       :append-icon="showPassword ? 'visibility_off' : 'visibility'"
       :type="showPassword ? 'text' : 'password'"
@@ -35,6 +37,7 @@
             username: "",
             password: "",
             valid: false,
+            sending: false,
             rules: {
               required: value => !!value || 'Required.',
               validEmail: e => emailRegex.test(e) || 'Please enter a valid email address'
@@ -58,6 +61,13 @@
               this.$refs.usernameField.error = true;
               this.$refs.passwordField.error = true;
             });
+          },
+          /**
+           * Sets the sending state to true or false
+           * @param state {Boolean}
+           */
+          setSubmitState(state) {
+            this.sending = state;
           }
         },
     }

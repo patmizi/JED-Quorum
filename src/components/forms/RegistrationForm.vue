@@ -4,18 +4,21 @@
         v-model="firstName"
         label="First Name"
         :rules="[rules.required]"
+        :disabled="sending"
         validate-on-blur
       ></v-text-field>
       <v-text-field
         v-model="lastName"
         label="Last Name"
         :rules="[rules.required]"
+        :disabled="sending"
         validate-on-blur
       ></v-text-field>
       <v-text-field
         v-model="email"
         label="E-mail"
         :rules="[rules.required, rules.validEmail]"
+        :disabled="sending"
         validate-on-blur
       ></v-text-field>
       <v-text-field
@@ -25,6 +28,7 @@
         label="Password"
         :type="showPassword1 ? 'text' : 'password'"
         :rules="[rules.required, rules.min, rules.matchingPasswords]"
+        :disabled="sending"
         @click:append="showPassword1 = !showPassword1"
         v-on:blur="triggerPasswordValidation(true)"
         validate-on-blur
@@ -36,6 +40,7 @@
         :append-icon="showPassword2 ? 'visibility_off' : 'visibility'"
         :type="showPassword2 ? 'text' : 'password'"
         :rules="[rules.matchingPasswords]"
+        :disabled="sending"
         @click:append="showPassword2 = !showPassword2"
         v-on:blur="triggerPasswordValidation(false)"
         validate-on-blur
@@ -58,6 +63,7 @@
             lastName: "",
             showPassword1: false,
             showPassword2: false,
+            sending: false,
             rules: {
               required: value => !!value || 'Required.',
               min: v => v.length >= 8 || 'Min 8 characters',
@@ -86,6 +92,13 @@
               if(trigger2) this.$refs.password2field.validate();
               else this.$refs.password1field.validate();
           },
+          /**
+           * Sets the sending state to true or false
+           * @param state {Boolean}
+           */
+          setSubmitState(state) {
+              this.sending = state;
+          }
         }
     }
 </script>

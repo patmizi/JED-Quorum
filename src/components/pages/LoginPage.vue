@@ -21,7 +21,12 @@
                   <v-card-actions>
                     <v-btn flat color="primary" @click="changePage('register')">Create an account</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn @click="handleLogin" color="primary">LOGIN</v-btn>
+                    <v-btn
+                      @click="handleLogin"
+                      color="primary"
+                      :loading="sending"
+                      :disabled="sending"
+                    >LOGIN</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-container>
@@ -45,6 +50,9 @@
         },
         data() {
           return {
+            loginError: false,
+            loginErrorMessage: "",
+            sending: false,
           }
         },
         mounted() {
@@ -58,11 +66,15 @@
             let formData = this.$refs.loginForm.getFormValue();
             console.log("logging in with form data: ", formData);
             if(formData && formData.username && formData.password){
+              this.$refs.loginForm.setSubmitState(true);
+              this.sending = true;
               this.$store.dispatch('authentication/login', {
                 username: formData.username,
                 password: formData.password
               }).catch((err) => {
                 console.log("Error when logging in: ", err);
+                this.$refs.loginForm.setSubmitState(false);
+                this.sending = false
                 this.$refs.loginForm.failLogin();
               })
             }
