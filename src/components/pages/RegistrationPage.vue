@@ -2,18 +2,18 @@
   <div>
     <v-container>
       <v-layout row class="text-xs-center">
-        <v-flex xs2></v-flex>
-        <v-flex xs8>
-          <v-card>
+        <v-flex xs0 sm2></v-flex>
+        <v-flex xs12 sm8>
+          <v-card flat>
             <v-layout>
-              <v-flex xs2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
+              <v-flex xs1 md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
                 <v-card height="570px"></v-card>
               </v-flex>
-              <v-flex xs10>
+              <v-flex>
                 <v-container style="position: relative;top: 13%;" class="text-xs-center">
                   <v-card flat>
                     <v-card-title primary-title>
-                      <h4>Register</h4>
+                      <h4>Account Registration</h4>
                     </v-card-title>
                     <RegistrationForm
                       ref="registerForm"
@@ -30,7 +30,7 @@
             </v-layout>
           </v-card>
         </v-flex>
-        <v-flex xs2></v-flex>
+        <v-flex xs0 sm2></v-flex>
       </v-layout>
     </v-container>
   </div>
