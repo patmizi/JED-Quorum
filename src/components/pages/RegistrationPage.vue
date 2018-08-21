@@ -76,7 +76,7 @@
                 this.registerError = true;
                 this.registerErrorMessage = err.json.msg;
                 this.$refs.registerForm.setSubmitState(false);
-                this.sending = true;
+                this.sending = false;
               })
           }
         },

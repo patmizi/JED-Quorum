@@ -64,7 +64,7 @@
         },
         data() {
           return {
-            drawer: true,
+            drawer: false,
             menuItems: [
               { icon: 'dashboard', text: 'Dashboard' },
               { icon: 'face', text: 'Doctor Registry' },
@@ -88,8 +88,5 @@
 </script>
 
 <style scoped>
-  .avatar-container {
-    /*margin-top: 15px;*/
-    /*margin-bottom: 15px;*/
-  }
+
 </style>

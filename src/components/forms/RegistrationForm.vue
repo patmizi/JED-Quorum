@@ -39,7 +39,7 @@
         label="Confirm Password"
         :append-icon="showPassword2 ? 'visibility_off' : 'visibility'"
         :type="showPassword2 ? 'text' : 'password'"
-        :rules="[rules.matchingPasswords]"
+        :rules="[rules.required, rules.matchingPasswords]"
         :disabled="sending"
         @click:append="showPassword2 = !showPassword2"
         v-on:blur="triggerPasswordValidation(false)"
