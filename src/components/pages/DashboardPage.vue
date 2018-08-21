@@ -20,7 +20,7 @@
       </v-toolbar>
       <v-list dense class="pt-0">
         <!--menu items below-->
-        <v-list-tile v-for="item in menuItems" :key="item.text" @click="">
+        <v-list-tile v-for="item in menuItems" :key="item.text" @click="renderMenuItem(item.component)">
           <v-list-tile-action>
             <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
@@ -48,7 +48,9 @@
       <v-container fill-height>
         <v-layout justify-center align-center>
           <v-flex shrink>
-            PLACEHOLDER_TEXT
+            <keep-alive>
+              <component v-bind:is="displayComponent"></component>
+            </keep-alive>
           </v-flex>
         </v-layout>
       </v-container>
@@ -58,17 +60,27 @@
 
 <script>
     import { mapActions } from 'vuex'
+    import DashboardDefault from './dashboardContent/DashboardDefault';
+    import DashboardDoctorsRegistry from './dashboardContent/DashboardDoctorsRegistry';
+    import DashboardPatientRegistry from './dashboardContent/DashboardPatientRegistry';
+
     export default {
         name: "DashboardPage",
+        components: {
+          DashboardDefault,
+          DashboardDoctorsRegistry,
+          DashboardPatientRegistry
+        },
         computed: {
         },
         data() {
           return {
             drawer: false,
+            displayComponent: DashboardDefault,
             menuItems: [
-              { icon: 'dashboard', text: 'Dashboard' },
-              { icon: 'face', text: 'Doctor Registry' },
-              { icon: 'pregnant_woman', text: 'Patient Registry' }
+              { icon: 'dashboard', text: 'Dashboard', component: DashboardDefault },
+              { icon: 'face', text: 'Doctor Registry', component: DashboardDoctorsRegistry },
+              { icon: 'pregnant_woman', text: 'Patient Registry', component: DashboardPatientRegistry }
             ]
           }
         },
@@ -79,6 +91,11 @@
               .catch((err) => {
                 console.log("an error has occured: ", err);
               })
+          },
+          renderMenuItem(component) {
+            if(component !== null && component !== undefined){
+              this.displayComponent = component;
+            }
           }
         },
         mounted(){
