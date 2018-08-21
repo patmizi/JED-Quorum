@@ -20,7 +20,12 @@
       </v-toolbar>
       <v-list dense class="pt-0">
         <!--menu items below-->
-        <v-list-tile v-for="item in menuItems" :key="item.text" @click="renderMenuItem(item.component)">
+        <v-list-tile
+          v-for="(item, index) in menuItems"
+          :key="item.text"
+          @click="handleMenuClick(item.component, index)"
+          :disabled="item.selected"
+        >
           <v-list-tile-action>
             <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
@@ -78,9 +83,9 @@
             drawer: false,
             displayComponent: DashboardDefault,
             menuItems: [
-              { icon: 'dashboard', text: 'Dashboard', component: DashboardDefault },
-              { icon: 'face', text: 'Doctor Registry', component: DashboardDoctorsRegistry },
-              { icon: 'pregnant_woman', text: 'Patient Registry', component: DashboardPatientRegistry }
+              { icon: 'dashboard', text: 'Dashboard', component: DashboardDefault, selected: true },
+              { icon: 'face', text: 'Doctor Registry', component: DashboardDoctorsRegistry, selected: false },
+              { icon: 'pregnant_woman', text: 'Patient Registry', component: DashboardPatientRegistry, selected: false }
             ]
           }
         },
@@ -92,11 +97,16 @@
                 console.log("an error has occured: ", err);
               })
           },
-          renderMenuItem(component) {
+          handleMenuClick(component, menuIndex) {
+            console.log("index clicked: ", menuIndex);
+            for(let i=0; i < this.menuItems.length; i++){
+              if(i === menuIndex) this.menuItems[i].selected = true;
+              else this.menuItems[i].selected = false;
+            }
             if(component !== null && component !== undefined){
               this.displayComponent = component;
             }
-          }
+          },
         },
         mounted(){
           console.log("STORE: ", this.$store.state.authentication);
