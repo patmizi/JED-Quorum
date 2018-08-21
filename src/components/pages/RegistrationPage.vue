@@ -69,6 +69,7 @@
                 console.log('Registered account with response: ', res);
                 this.$refs.registerForm.setSubmitState(false);
                 this.sending = false;
+                this.$router.push('postregistration');
               })
               .catch((err) => {
                 console.log("Error signing up: ", err);
