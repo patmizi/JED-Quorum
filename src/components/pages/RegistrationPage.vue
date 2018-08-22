@@ -7,7 +7,7 @@
           <v-card flat>
             <v-layout>
               <v-flex xs1 md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
-                <v-card height="570px"></v-card>
+                <v-card height="650px"></v-card>
               </v-flex>
               <v-flex>
                 <v-container style="position: relative;top: 13%;" class="text-xs-center">
@@ -19,7 +19,6 @@
                     <RegistrationForm
                       ref="registerForm"
                     ></RegistrationForm>
-                    <br>
                     <v-card-actions>
                       <v-btn flat color="primary" @click="changePage('login')">Sign in instead</v-btn>
                       <v-spacer></v-spacer>
@@ -45,6 +44,8 @@
 <script>
     import { register } from '../../lib/auth';
     import RegistrationForm from '../forms/RegistrationForm';
+    import { compileUserRegistrationMetadata } from '../../lib/authMetadata';
+
     export default {
       name: "RegistrationPage",
       components: {RegistrationForm},
@@ -64,8 +65,11 @@
             this.registerErrorMessage = "";
             this.$refs.registerForm.setSubmitState(true);
             this.sending = true;
-            register(formData.username, formData.password, {})
-              .then((res) => {
+            register(
+              formData.username,
+              formData.password,
+              compileUserRegistrationMetadata(formData)
+            ).then((res) => {
                 console.log('Registered account with response: ', res);
                 this.$refs.registerForm.setSubmitState(false);
                 this.sending = false;

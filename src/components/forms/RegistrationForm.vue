@@ -45,6 +45,27 @@
         v-on:blur="triggerPasswordValidation(false)"
         validate-on-blur
       ></v-text-field>
+      <v-radio-group
+        v-model="businessRole"
+        :disabled="sending"
+        :rules="[rules.required]"
+        label="I am a: "
+      >
+        <v-layout row wrap>
+          <v-flex s6>
+            <v-radio
+              label="Business Admin"
+              value="receptionist"
+            ></v-radio>
+          </v-flex>
+          <v-flex s6>
+            <v-radio
+              label="Medical Professional"
+              value="doctor"
+            ></v-radio>
+          </v-flex>
+        </v-layout>
+      </v-radio-group>
   </v-form>
 </template>
 
@@ -61,6 +82,7 @@
             password2: "",
             firstName: "",
             lastName: "",
+            businessRole: "",
             showPassword1: false,
             showPassword2: false,
             sending: false,
@@ -82,8 +104,8 @@
               return {
                 username: this.email,
                 password: this.password,
-                firstName: this.firstName,
-                lastName: this.lastName
+                fullName: [this.firstName, this.lastName].join(' '),
+                businessRole: this.businessRole
               };
             }
             return null;
