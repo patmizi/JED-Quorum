@@ -6,7 +6,7 @@
         <v-flex xs12 sm8>
           <v-card flat>
             <v-layout>
-              <v-flex xs1 md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
+              <v-flex xs1 md2 style="background-image: url('http://radiogrenadines.com/wp-content/uploads/2014/05/medical-sign.jpg')">
                 <v-card height="650px"></v-card>
               </v-flex>
               <v-flex>
