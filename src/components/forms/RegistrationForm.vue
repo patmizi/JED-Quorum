@@ -15,6 +15,20 @@
         validate-on-blur
       ></v-text-field>
       <v-text-field
+        v-model="dateOfBirth"
+        label="Date Of Birth"
+        :rules="[rules.required]"
+        :disabled="sending"
+        validate-on-blur
+      ></v-text-field>
+      <v-text-field
+        v-model="mobileNumber"
+        label="Mobile Number"
+        :rules="[rules.required]"
+        :disabled="sending"
+        validate-on-blur
+      ></v-text-field>
+      <v-text-field
         v-model="email"
         label="E-mail"
         :rules="[rules.required, rules.validEmail]"
@@ -82,6 +96,8 @@
             password2: "",
             firstName: "",
             lastName: "",
+            mobileNumber: "",
+            dateOfBirth: "",
             businessRole: "",
             showPassword1: false,
             showPassword2: false,
@@ -105,6 +121,10 @@
                 username: this.email,
                 password: this.password,
                 fullName: [this.firstName, this.lastName].join(' '),
+                firstName: this.firstName,
+                lastName: this.lastName,
+                contactNumber: this.contactNumber,
+                dateOfBirth: this.dateOfBirth,
                 businessRole: this.businessRole
               };
             }

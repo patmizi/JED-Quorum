@@ -4,6 +4,10 @@
  *   username: string,
  *   password: string,
  *   fullName: string,
+ *   firstName: string,
+ *   lastName: string,
+ *   contactNumber: string,
+ *   dateOfBirth: string,
  *   businessRole: string
  * }
  */
@@ -17,5 +21,9 @@ export function compileUserRegistrationMetadata(formData) {
     email: formData.username,
     full_name: formData.fullName,
     business_role: formData.businessRole,
+    first_name: formData.firstName,
+    last_name: formData.lastName,
+    contact_number: formData.contactNumber,
+    date_of_birth: formData.dateOfBirth
   }
 }

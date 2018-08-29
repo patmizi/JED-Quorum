@@ -42,7 +42,8 @@ export const authentication = {
     loginSuccess(state, user) {
       state.token = user.token;
       state.status = { loggedIn: true };
-      state.user = user;
+      state.user = user.user_metadata;
+      state.user.id = user.id;
     },
     loginFailure(state) {
       state.status = {};
