@@ -15,11 +15,15 @@
         validate-on-blur
       ></v-text-field>
       <v-text-field
+        ref="dateOfBirth"
         v-model="dateOfBirth"
         label="Date Of Birth"
         :rules="[rules.required]"
         :disabled="sending"
+        mask="##/##/####"
+        hint="DD/MM/YYYY"
         validate-on-blur
+        return-masked-value
       ></v-text-field>
       <v-text-field
         v-model="mobileNumber"
@@ -123,7 +127,7 @@
                 fullName: [this.firstName, this.lastName].join(' '),
                 firstName: this.firstName,
                 lastName: this.lastName,
-                contactNumber: this.contactNumber,
+                contactNumber: this.mobileNumber,
                 dateOfBirth: this.dateOfBirth,
                 businessRole: this.businessRole
               };
