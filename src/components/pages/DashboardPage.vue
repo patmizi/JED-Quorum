@@ -1,8 +1,10 @@
 <template>
   <v-app>
     <v-navigation-drawer
+      :mini-variant.sync="mini"
       v-model="drawer"
-      fixed
+      hide-overlay
+      stateless
       app
     >
       <v-toolbar flat>
@@ -15,10 +17,19 @@
               <v-list-tile-title>{{profTitle}}{{fullName}}</v-list-tile-title>
               <v-list-tile-sub-title>Glebe Orthodontics</v-list-tile-sub-title>
             </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn
+                icon
+                @click.stop="mini = !mini"
+              >
+                <v-icon>chevron_left</v-icon>
+              </v-btn>
+            </v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-toolbar>
       <v-list dense class="pt-0">
+        <v-subheader>Admin</v-subheader>
         <!--menu items below-->
         <v-list-tile
           v-for="(item, index) in menuItems"
@@ -33,6 +44,24 @@
             <v-list-tile-title>{{item.text}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-divider></v-divider>
+        <v-subheader>System</v-subheader>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon>settings</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Settings</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="handleLogOut">
+          <v-list-tile-action>
+            <v-icon>lock</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Log Out</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -40,14 +69,6 @@
       app
       class="elevation-0"
     >
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-spacer></v-spacer>
-      <v-list-tile>
-        <v-btn @click="handleLogOut" flat>
-          Log Out
-          <v-icon>exit_to_app</v-icon>
-        </v-btn>
-      </v-list-tile>
     </v-toolbar>
     <v-content>
       <v-container fill-height>
@@ -92,12 +113,13 @@
         },
         data() {
           return {
-            drawer: false,
+            drawer: true,
+            mini: false,
             displayComponent: DashboardDefault,
             menuItems: [
               { icon: 'dashboard', text: 'Dashboard', component: DashboardDefault, selected: true },
-              { icon: 'face', text: 'Doctor Registry', component: DashboardDoctorsRegistry, selected: false },
-              { icon: 'pregnant_woman', text: 'Patient Registry', component: DashboardPatientRegistry, selected: false }
+              { icon: 'local_hospital', text: 'Doctor Registry', component: DashboardDoctorsRegistry, selected: false },
+              { icon: 'people', text: 'Patient Registry', component: DashboardPatientRegistry, selected: false }
             ]
           }
         },
@@ -112,8 +134,7 @@
           handleMenuClick(component, menuIndex) {
             console.log("index clicked: ", menuIndex);
             for(let i=0; i < this.menuItems.length; i++){
-              if(i === menuIndex) this.menuItems[i].selected = true;
-              else this.menuItems[i].selected = false;
+              this.menuItems[i].selected = i === menuIndex;
             }
             if(component !== null && component !== undefined){
               this.displayComponent = component;
