@@ -12,7 +12,7 @@
               <img src="https://randomuser.me/api/portraits/men/85.jpg">
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>Dr. Benjamin Franklin</v-list-tile-title>
+              <v-list-tile-title>{{profTitle}}{{fullName}}</v-list-tile-title>
               <v-list-tile-sub-title>Glebe Orthodontics</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -44,7 +44,7 @@
       <v-spacer></v-spacer>
       <v-list-tile>
         <v-btn @click="handleLogOut" flat>
-          Log Out
+          {{fullName}}
           <v-icon>exit_to_app</v-icon>
         </v-btn>
       </v-list-tile>
@@ -64,7 +64,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import { mapActions } from 'vuex';
     import DashboardDefault from './dashboardContent/DashboardDefault';
     import DashboardDoctorsRegistry from './dashboardContent/DashboardDoctorsRegistry';
     import DashboardPatientRegistry from './dashboardContent/DashboardPatientRegistry';
@@ -77,6 +77,18 @@
           DashboardPatientRegistry
         },
         computed: {
+          fullName: function() {
+            if(this.$store.state.authentication && this.$store.state.authentication.user && this.$store.state.authentication.user){
+              return this.$store.state.authentication.user.full_name;
+            }
+            return "User";
+          },
+          profTitle: function() {
+            if(this.$store.state.authentication.user && this.$store.state.authentication.user && this.$store.state.authentication.user.business_role === "doctor"){
+              return "Dr. ";
+            }
+            return "";
+          }
         },
         data() {
           return {
@@ -110,6 +122,7 @@
         },
         mounted(){
           console.log("STORE: ", this.$store.state.authentication);
+          console.log("STORE FULL: ", this.$store);
         }
     }
 </script>
