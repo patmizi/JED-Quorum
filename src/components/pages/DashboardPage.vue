@@ -44,7 +44,7 @@
       <v-spacer></v-spacer>
       <v-list-tile>
         <v-btn @click="handleLogOut" flat>
-          {{fullName}}
+          Log Out
           <v-icon>exit_to_app</v-icon>
         </v-btn>
       </v-list-tile>
