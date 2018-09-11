@@ -56,7 +56,7 @@ export default new Router({
       path: '/dashboard',
       name: 'Account Dashboard',
       component: DashboardPage,
-      beforeEnter: authenticationCheck
+      // beforeEnter: authenticationCheck
     },
     {
       path: '/postregistration',

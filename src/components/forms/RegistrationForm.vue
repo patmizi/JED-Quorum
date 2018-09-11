@@ -124,6 +124,7 @@
               return {
                 username: this.email,
                 password: this.password,
+                email: this.email,
                 fullName: [this.firstName, this.lastName].join(' '),
                 firstName: this.firstName,
                 lastName: this.lastName,

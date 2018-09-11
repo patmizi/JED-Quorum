@@ -123,3 +123,17 @@ export function logout(user) {
   console.log("auth current user: ", auth.currentUser());
   return auth.currentUser().logout();
 }
+
+export function updateUserMetaData(data) {
+  if(!data) throw new Error("Cannot have no metadata!");
+  let user = auth.currentUser();
+  // We loop over all object properties and remove any bad ones. The api will only update the given properties.
+  for (const prop in data) {
+    if(data.hasOwnProperty(prop)){
+      if(data.prop == null || data.prop === undefined || data.prop === "" || isNaN(data.prop)){
+        delete data.prop;
+      }
+    }
+  }
+  return user.update(data);
+}

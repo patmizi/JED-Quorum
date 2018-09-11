@@ -46,7 +46,7 @@
         </v-list-tile>
         <v-divider></v-divider>
         <v-subheader>System</v-subheader>
-        <v-list-tile>
+        <v-list-tile @click="handleOpenModal('settingsModal')">
           <v-list-tile-action>
             <v-icon>settings</v-icon>
           </v-list-tile-action>
@@ -81,6 +81,9 @@
         </v-layout>
       </v-container>
     </v-content>
+    <user-settings-modal
+      ref="settingsModal"
+    ></user-settings-modal>
   </v-app>
 </template>
 
@@ -89,13 +92,15 @@
     import DashboardDefault from './dashboardContent/DashboardDefault';
     import DashboardDoctorsRegistry from './dashboardContent/DashboardDoctorsRegistry';
     import DashboardPatientRegistry from './dashboardContent/DashboardPatientRegistry';
+    import UserSettingsModal from './modals/UserSettingsModal';
 
     export default {
         name: "DashboardPage",
         components: {
           DashboardDefault,
           DashboardDoctorsRegistry,
-          DashboardPatientRegistry
+          DashboardPatientRegistry,
+          'user-settings-modal': UserSettingsModal,
         },
         computed: {
           fullName: function() {
@@ -139,6 +144,9 @@
             if(component !== null && component !== undefined){
               this.displayComponent = component;
             }
+          },
+          handleOpenModal(modalName) {
+            this.$refs[modalName].openModal();
           },
         },
         mounted(){

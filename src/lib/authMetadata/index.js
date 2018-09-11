@@ -14,11 +14,11 @@
 /**
  * Transforms the form object into a user_metadata object for identity metadata
  * @param formData
- * @returns {{email: string, full_name: string, business_role: string}}
+ * @returns {{email: string, full_name: string, business_role: string, first_name: string, last_name: string, contact_number: string, date_of_birth: string}}
  */
 export function compileUserRegistrationMetadata(formData) {
   return {
-    email: formData.username,
+    email: formData.email,
     full_name: formData.fullName,
     business_role: formData.businessRole,
     first_name: formData.firstName,
