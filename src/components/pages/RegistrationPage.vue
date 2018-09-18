@@ -7,30 +7,32 @@
           <v-card flat>
             <v-layout>
               <v-flex xs1 md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
-                <v-card height="820px"></v-card>
+                <v-card :height="matchFormHeight"></v-card>
               </v-flex>
               <v-flex>
-                <v-container style="position: relative;top: 13%;" class="text-xs-center">
-                  <v-card flat>
-                    <v-card-title primary-title>
-                      <h4>Account Registration</h4>
-                    </v-card-title>
-                    <v-alert :value="registerError" type="error">{{ registerErrorMessage }}</v-alert>
-                    <RegistrationForm
-                      ref="registerForm"
-                    ></RegistrationForm>
-                    <v-card-actions>
-                      <v-btn flat color="primary" @click="changePage('login')">Sign in instead</v-btn>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                        @click="registerAccount"
-                        color="primary"
-                        :loading="sending"
-                        :disabled="sending"
-                      >Sign Up</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-container>
+                <span ref="formContainer">
+                  <v-container style="position: relative;top: 13%;" class="text-xs-center">
+                    <v-card flat>
+                      <v-card-title primary-title>
+                        <h4>Account Registration</h4>
+                      </v-card-title>
+                      <v-alert :value="registerError" type="error">{{ registerErrorMessage }}</v-alert>
+                      <RegistrationForm
+                        ref="registerForm"
+                      ></RegistrationForm>
+                      <v-card-actions>
+                        <v-btn flat color="primary" @click="changePage('login')">Sign in instead</v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          @click="registerAccount"
+                          color="primary"
+                          :loading="sending"
+                          :disabled="sending"
+                        >Sign Up</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-container>
+                </span>
               </v-flex>
             </v-layout>
           </v-card>
@@ -54,6 +56,16 @@
           registerError: false,
           registerErrorMessage: "",
           sending: false,
+        }
+      },
+      computed: {
+        // Gets the height for a particular component ref
+        matchFormHeight(ref) {
+          if(ref && ref.$refs && ref.$refs.formContainer && ref.$refs.formContainer.clientHeight) {
+            return ref.$refs.formContainer.clientHeight;
+          }
+          console.info("Could not find the ref: ", ref);
+          return "840px"
         }
       },
       methods: {

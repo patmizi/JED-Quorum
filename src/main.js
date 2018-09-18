@@ -6,6 +6,7 @@ import App from './App';
 import Vuetify from 'vuetify';
 import router from './router';
 import store from './_store';
+import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
 
 Vue.config.productionTip = false;
 Vue.use(Vuetify, {
@@ -20,6 +21,11 @@ Vue.use(Vuetify, {
     success: "#4caf50"
   }
 });
+
+Vue.use(VuetifyGoogleAutocomplete, {
+  apiKey: 'AIzaSyC4NcMTbAfaFINh30H72rDvZDBU-UGZTt4',
+});
+
 
 /* eslint-disable no-new */
 new Vue({

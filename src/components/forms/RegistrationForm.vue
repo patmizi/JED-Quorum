@@ -25,6 +25,12 @@
         validate-on-blur
         return-masked-value
       ></v-text-field>
+      <vuetify-google-autocomplete
+        id="map"
+        append-icon="search"
+        placeholder="Search Address"
+        v-on:placechanged="onSelectAddress"
+      ></vuetify-google-autocomplete>
       <v-text-field
         v-model="mobileNumber"
         label="Mobile Number"
@@ -89,6 +95,7 @@
 
 <script>
     import { emailRegex } from "../../lib/helpers/constants";
+    import { Address } from "../../lib/models/address";
 
     export default {
       name: "RegistrationForm",
@@ -103,6 +110,7 @@
             mobileNumber: "",
             dateOfBirth: "",
             businessRole: "",
+            address: null,
             showPassword1: false,
             showPassword2: false,
             sending: false,
@@ -118,6 +126,11 @@
           }
         },
         methods: {
+          onSelectAddress(address) {
+            if(address !== null && address !== undefined) {
+              this.address = new Address(address).asQuorum();
+            }
+          },
           getFormData() {
             this.$refs.form.validate();
             if(this.valid){
@@ -130,7 +143,8 @@
                 lastName: this.lastName,
                 contactNumber: this.mobileNumber,
                 dateOfBirth: this.dateOfBirth,
-                businessRole: this.businessRole
+                businessRole: this.businessRole,
+                address: this.address
               };
             }
             return null;

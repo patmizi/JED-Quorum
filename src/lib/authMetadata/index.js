@@ -1,3 +1,5 @@
+import { Address } from "../models/address";
+
 /**
  * Sample form object
  * {
@@ -14,7 +16,7 @@
 /**
  * Transforms the form object into a user_metadata object for identity metadata
  * @param formData
- * @returns {{email: string, full_name: string, business_role: string, first_name: string, last_name: string, contact_number: string, date_of_birth: string}}
+ * @returns {{email: *, full_name: *|fullName, business_role: string, first_name: string, last_name: string, contact_number: *, date_of_birth: string, address: Address}}
  */
 export function compileUserRegistrationMetadata(formData) {
   return {
@@ -24,6 +26,7 @@ export function compileUserRegistrationMetadata(formData) {
     first_name: formData.firstName,
     last_name: formData.lastName,
     contact_number: formData.contactNumber,
-    date_of_birth: formData.dateOfBirth
+    date_of_birth: formData.dateOfBirth,
+    address: new Address(formData.address).asQuorum()
   }
 }
