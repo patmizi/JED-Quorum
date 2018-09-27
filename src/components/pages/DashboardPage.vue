@@ -73,7 +73,7 @@
     <v-content>
       <v-container fill-height>
         <v-layout justify-center align-center>
-          <v-flex shrink>
+          <v-flex>
             <keep-alive>
               <component v-bind:is="displayComponent"></component>
             </keep-alive>
