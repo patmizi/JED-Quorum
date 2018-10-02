@@ -7,8 +7,12 @@ import Vuetify from 'vuetify';
 import router from './router';
 import store from './_store';
 import VuetifyGoogleAutocomplete from 'vuetify-google-autocomplete';
+import ApiService from './lib/services/api.service';
 
 Vue.config.productionTip = false;
+
+ApiService.init();
+
 Vue.use(Vuetify, {
   theme: {
     primary: "#2196F3",

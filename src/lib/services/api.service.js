@@ -33,9 +33,9 @@ const ApiService = {
             throw new Error(`[PATCH] error at ${res}/${id} with params ${params} => ${err}`);
           })
     },
-    delete(res){
+    delete(res, id=""){
       return Vue.axios
-        .delete(`${res}`)
+        .delete(`${res}/${id}`)
         .catch((err) => { throw new Error(`[DELETE] error at ${res} => ${err}`) });
     }
 };
@@ -62,5 +62,23 @@ export const ReceptionistService = {
   },
   update(id, data) {
     return ApiService.update('receptionists', id, data)
+  }
+};
+
+export const PatientService = {
+  get_all() {
+    return ApiService.get('patients', '');
+  },
+  get(id) {
+    return ApiService.get('patients', id)
+  },
+  update(id, data) {
+    return ApiService.update('patients', id, data)
+  },
+  delete(id) {
+    return ApiService.delete('patients', id)
+  },
+  add(data) {
+    return ApiService.post('patients', data)
   }
 };

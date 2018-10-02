@@ -39,8 +39,12 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     import EditPatientModal from '../modals/patient/EditPatientModal';
     import AddPatientModal from '../modals/patient/AddPatientModal';
+    import { FETCH_PATIENTS } from '../../../_store/actions.type';
+    import store from '../../../_store';
+
     export default {
       name: "DashboardPatientRegistry",
       components: {
@@ -57,7 +61,6 @@
             { text: 'Contact Number', sortable: false, value: 'Contact_Number' },
             { text: 'Actions', value: 'Patient_Id' }
           ],
-          patients: [],
           editedIndex: -1
         }
       },
@@ -67,25 +70,7 @@
       methods: {
         initialize() {
           console.log("Initializing");
-          this.patients = [{
-            "AddressId": 3,
-            "Contact_Number": "0400000000",
-            "Date_Of_Birth": "12/01/1993",
-            "Email": "kullen.hatim.patient@lcelandic.com",
-            "First_Name": "Test",
-            "Gender": "M",
-            "Last_Name": "Test",
-            "Patient_Id": 1,
-            "address": {
-              "AddressId": 3,
-              "Country": "United States",
-              "Postcode": 10013,
-              "State": "NY",
-              "Street": "17 Greenwich St",
-              "Suburb": "",
-              "Unit": ""
-            }
-          }]
+          store.dispatch(FETCH_PATIENTS);
         },
         editPatient(patient) {
           console.log("EDIT PATIENT: ", patient);
@@ -98,6 +83,11 @@
         deletePatient(patient) {
           console.log("DELETE PATIENT: ", patient)
         }
+      },
+      computed: {
+        ...mapGetters([
+          'patients',
+        ])
       }
     }
 </script>
