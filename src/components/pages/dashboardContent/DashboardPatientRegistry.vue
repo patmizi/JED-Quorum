@@ -4,7 +4,7 @@
         <v-toolbar-title>Patient Registry</v-toolbar-title>
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog">ADD PATIENT FORM GOES HERE</v-dialog>
+        <AddPatientModal ref="addPatientModal"></AddPatientModal>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -34,68 +34,70 @@
           <v-btn color="primary" @click="initialize">Refresh</v-btn>
         </template>
       </v-data-table>
+      <EditPatientModal ref="editPatientModal"></EditPatientModal>
     </div>
 </template>
 
 <script>
+    import EditPatientModal from '../modals/patient/EditPatientModal';
+    import AddPatientModal from '../modals/patient/AddPatientModal';
     export default {
-        name: "DashboardPatientRegistry",
-        data() {
-          return {
-            dialog: false,
-            headers: [
-              { text: 'Patient ID',  align: 'left', sortable: true, value: 'Patient_Id' },
-              { text: 'First Name', sortable: true, value: 'First_Name'},
-              { text: 'Last Name', sortable: true, value: 'Last_Name' },
-              { text: 'Contact Number', sortable: false, value: 'Contact_Number' },
-              { text: 'Actions', value: 'Patient_Id' }
-            ],
-            patients: [],
-            editedIndex: -1
-          }
-        },
-      computed: {
-          formTitle() {
-            return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-          }
+      name: "DashboardPatientRegistry",
+      components: {
+        EditPatientModal,
+        AddPatientModal
       },
-      watch: {
-          dialog(val) {
-            val || this.close()
-          }
+      data() {
+        return {
+          dialog: false,
+          headers: [
+            { text: 'Patient ID',  align: 'left', sortable: true, value: 'Patient_Id' },
+            { text: 'First Name', sortable: true, value: 'First_Name'},
+            { text: 'Last Name', sortable: true, value: 'Last_Name' },
+            { text: 'Contact Number', sortable: false, value: 'Contact_Number' },
+            { text: 'Actions', value: 'Patient_Id' }
+          ],
+          patients: [],
+          editedIndex: -1
+        }
       },
       created() {
           this.initialize()
       },
       methods: {
-          initialize() {
-            console.log("Initializing");
-            this.patients = [{
-                "AddressId": 3,
-                "Contact_Number": "0400000000",
-                "Date_Of_Birth": "12/01/1993",
-                "Email": "kullen.hatim.patient@lcelandic.com",
-                "First_Name": "Test",
-                "Gender": "M",
-                "Last_Name": "Test",
-                "Patient_Id": 1,
-                "address": {
-                  "AddressId": 3,
-                  "Country": "United States",
-                  "Postcode": 10013,
-                  "State": "NY",
-                  "Street": "17 Greenwich St",
-                  "Suburb": "",
-                  "Unit": ""
-                }
-              }]
-          },
-          editPatient(patient) {
-            console.log("EDIT PATIENT: ", patient)
-          },
-          deletePatient(patient) {
-            console.log("DELETE PATIENT: ", patient)
+        initialize() {
+          console.log("Initializing");
+          this.patients = [{
+            "AddressId": 3,
+            "Contact_Number": "0400000000",
+            "Date_Of_Birth": "12/01/1993",
+            "Email": "kullen.hatim.patient@lcelandic.com",
+            "First_Name": "Test",
+            "Gender": "M",
+            "Last_Name": "Test",
+            "Patient_Id": 1,
+            "address": {
+              "AddressId": 3,
+              "Country": "United States",
+              "Postcode": 10013,
+              "State": "NY",
+              "Street": "17 Greenwich St",
+              "Suburb": "",
+              "Unit": ""
+            }
+          }]
+        },
+        editPatient(patient) {
+          console.log("EDIT PATIENT: ", patient);
+          if(this.$refs && this.$refs.editPatientModal && patient.Patient_Id){
+            this.$refs.editPatientModal.openModal(patient.Patient_Id);
+            return;
           }
+          console.error("Something went wrong with editPatient: ", patient);
+        },
+        deletePatient(patient) {
+          console.log("DELETE PATIENT: ", patient)
+        }
       }
     }
 </script>

@@ -77,23 +77,23 @@
             this.registerErrorMessage = "";
             this.$refs.registerForm.setSubmitState(true);
             this.sending = true;
-            register(
-              formData.username,
-              formData.password,
-              compileUserRegistrationMetadata(formData)
-            ).then((res) => {
-                console.log('Registered account with response: ', res);
-                this.$refs.registerForm.setSubmitState(false);
-                this.sending = false;
-                this.$router.push('postregistration');
-              })
-              .catch((err) => {
-                console.log("Error signing up: ", err);
-                this.registerError = true;
-                this.registerErrorMessage = err.json.msg;
-                this.$refs.registerForm.setSubmitState(false);
-                this.sending = false;
-              })
+            // register(
+            //   formData.username,
+            //   formData.password,
+            //   compileUserRegistrationMetadata(formData)
+            // ).then((res) => {
+            //     console.log('Registered account with response: ', res);
+            //     this.$refs.registerForm.setSubmitState(false);
+            //     this.sending = false;
+            //     this.$router.push('postregistration');
+            //   })
+            //   .catch((err) => {
+            //     console.log("Error signing up: ", err);
+            //     this.registerError = true;
+            //     this.registerErrorMessage = err.json.msg;
+            //     this.$refs.registerForm.setSubmitState(false);
+            //     this.sending = false;
+            //   })
           }
         },
         changePage(relativeUrl) {
