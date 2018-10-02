@@ -45,6 +45,7 @@
       append-icon="search"
       placeholder="Search Address"
       v-on:placechanged="onSelectAddress"
+      :disabled="sending"
     ></vuetify-google-autocomplete>
   </v-form>
 </template>
@@ -91,6 +92,17 @@
               };
             }
             return null;
+          },
+          initForm() {
+            this.valid = false;
+            this.sending = false;
+            this.firstName = "";
+            this.lastName = "";
+            this.dateOfBirth = "";
+            this.email = "";
+            this.mobileNumber = "";
+            this.address = null;
+            this.$refs.form.reset();
           },
           /**
            * Sets the sending state to true or false
