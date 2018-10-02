@@ -7,7 +7,7 @@
       </v-card-title>
 
       <v-card-text>
-        PLACEHOLDER
+        <PatientForm ref="patientForm"></PatientForm>
       </v-card-text>
 
       <v-card-actions>
@@ -20,8 +20,13 @@
 </template>
 
 <script>
+    import PatientForm from "../../../forms/PatientForm";
+
     export default {
         name: "AddPatientModal",
+        components: {
+          PatientForm
+        },
         data() {
           return {
             dialog: false,

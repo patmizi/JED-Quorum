@@ -23,7 +23,7 @@ Vue.use(Vuetify, {
 });
 
 Vue.use(VuetifyGoogleAutocomplete, {
-  apiKey: 'AIzaSyC4NcMTbAfaFINh30H72rDvZDBU-UGZTt4',
+  apiKey: 'AIzaSyByzx6r7ToJ798jB27XJelSZdFctqCFWsc',
 });
 
 
