@@ -5,10 +5,12 @@
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <AddPatientModal ref="addPatientModal"></AddPatientModal>
+        <!--<v-btn @click="initialize">REFRESH</v-btn>-->
       </v-toolbar>
       <v-data-table
         :headers="headers"
         :items="patients"
+        :loading="loading"
         hide-actions
         class="elevation-1"
       >
@@ -61,7 +63,8 @@
             { text: 'Contact Number', sortable: false, value: 'Contact_Number' },
             { text: 'Actions', value: 'Patient_Id' }
           ],
-          editedIndex: -1
+          editedIndex: -1,
+          loading: false
         }
       },
       created() {
@@ -69,8 +72,14 @@
       },
       methods: {
         initialize() {
+          this.loading = true;
           console.log("Initializing");
-          store.dispatch(FETCH_PATIENTS);
+          Promise.all([
+            store.dispatch(FETCH_PATIENTS)
+          ]).then(() => {
+            console.log("All actions have been finished...;");
+            this.loading = false;
+          })
         },
         editPatient(patient) {
           console.log("EDIT PATIENT: ", patient);
