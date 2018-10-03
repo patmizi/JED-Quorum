@@ -1,6 +1,6 @@
 <template>
     <div>
-      <delete-confirmation-modal></delete-confirmation-modal>
+      <delete-confirmation-modal ref="deletePatientModal"></delete-confirmation-modal>
       <v-toolbar flat>
         <v-toolbar-title>Patient Registry</v-toolbar-title>
         <v-divider class="mx-2" inset vertical></v-divider>
@@ -95,7 +95,10 @@
         },
         deletePatient(patient) {
           console.log("DELETE PATIENT: ", patient);
-          store.dispatch(SET_FOCUS_PATIENT, patient);
+          store.dispatch(SET_FOCUS_PATIENT, patient)
+            .then(() => {
+              this.$refs.deletePatientModal.openModal();
+            });
         }
       },
       computed: {

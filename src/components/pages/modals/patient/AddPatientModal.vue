@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="dialog" max-width="500px">
-    <v-btn slot="activator" color="primary">Add Patient</v-btn>
+    <v-btn slot="activator" color="primary" @click="openModal">Add Patient</v-btn>
     <v-card>
       <v-card-title>
         <span class="headline">Add Patient</span>
@@ -25,6 +25,7 @@
     import {
       ADD_PATIENT,
       FETCH_PATIENTS,
+      RESET_FOCUS_PATIENT,
     } from '../../../../_store/actions.type';
 
     export default {
@@ -58,6 +59,9 @@
                   return this.$store.dispatch(FETCH_PATIENTS);
                 });
             }
+          },
+          openModal() {
+            this.$store.dispatch(RESET_FOCUS_PATIENT);
           }
         },
         computed: {

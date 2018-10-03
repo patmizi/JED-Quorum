@@ -1,6 +1,5 @@
 <template>
     <v-dialog v-model="dialog">
-      <v-btn slot="activator" color="primary">TEST</v-btn>
       <v-card>
         <v-card-title>
           <span class="headline">Delete Confirmation</span>
@@ -35,6 +34,12 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import {
+      DELETE_PATIENT,
+      RESET_FOCUS_PATIENT,
+      FETCH_PATIENTS,
+    } from '../../../../_store/actions.type';
+
     export default {
         name: "DeletePatientConfirmationModal",
         data() {
@@ -49,6 +54,7 @@
             if(val === false) {
               this.sending = val;
               this.confirmationText = "";
+              this.$store.dispatch(RESET_FOCUS_PATIENT);
             }
           }
         },
@@ -56,7 +62,16 @@
           deletePatient() {
             console.log('Deleting patient...', this.focusedPatient);
             this.sending = true;
+            this.$store.dispatch(DELETE_PATIENT, this.focusedPatient.Patient_Id)
+              .then((res) => {
+                console.log('Deleted patient response: ', res);
+                this.dialog = false;
+                this.$store.dispatch(FETCH_PATIENTS);
+              });
           },
+          openModal() {
+            this.dialog = true;
+          }
         },
         computed: {
           ...mapGetters([

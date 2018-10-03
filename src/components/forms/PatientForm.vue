@@ -78,6 +78,7 @@
     import {
       RESET_FOCUS_PATIENT,
     } from '../../_store/actions.type';
+    import store from '../../_store';
 
     export default {
       name: "PatientForm",
@@ -105,7 +106,7 @@
           initForm() {
             this.valid = false;
             this.sending = false;
-            this.$store.dispatch(RESET_FOCUS_PATIENT);
+            store.dispatch(RESET_FOCUS_PATIENT);
             this.$refs.form.reset();
           },
           /**
