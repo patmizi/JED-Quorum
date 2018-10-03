@@ -67,6 +67,7 @@
       placeholder="Search Address"
       v-on:placechanged="onSelectAddress"
       :disabled="sending"
+      :value="addressText"
     ></vuetify-google-autocomplete>
   </v-form>
 </template>
@@ -120,7 +121,10 @@
         computed: {
           ...mapGetters([
             'focusedPatient'
-          ])
+          ]),
+          addressText: function() {
+            return new Address(this.focusedPatient.address).toString();
+          }
         }
     }
 </script>
