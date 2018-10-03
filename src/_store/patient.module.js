@@ -8,6 +8,7 @@ import {
   RESET_FOCUS_PATIENT,
   DELETE_PATIENT,
   STATE_RESET,
+  UPDATE_PATIENT,
 } from './actions.type';
 import {
   SET_PATIENTS,
@@ -73,6 +74,16 @@ export const actions = {
         console.log("Got response...", res);
         return context.commit(RESET_FOCUSED_PATIENT_STATE);
       })
+  },
+  [UPDATE_PATIENT] (context, data) {
+    console.log('updating patient with data: ', data);
+    if(data.Patient_Id !== null && data.Patient_Id !== undefined) {
+      return PatientService.update(data.Patient_Id, data)
+        .then((res) => {
+          console.log('Got response... ', res);
+          return context.commit(RESET_FOCUSED_PATIENT_STATE);
+        })
+    }
   },
   [STATE_RESET] (context) {
     return context.commit(RESET_STATE);

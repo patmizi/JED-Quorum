@@ -93,7 +93,7 @@
             },
           }
         },
-        methods: {
+      methods: {
           onSelectAddress(address) {
             if(address !== null && address !== undefined) {
               this.focusedPatient.address = new Address(address).asQuorum();
@@ -117,15 +117,15 @@
           setSubmitState(state) {
             this.sending = state;
           }
-        },
-        computed: {
+      },
+      computed: {
           ...mapGetters([
             'focusedPatient'
           ]),
           addressText: function() {
             return new Address(this.focusedPatient.address).toString();
           }
-        }
+      }
     }
 </script>
 
