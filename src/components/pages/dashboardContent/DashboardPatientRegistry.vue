@@ -1,5 +1,6 @@
 <template>
     <div>
+      <delete-confirmation-modal></delete-confirmation-modal>
       <v-toolbar flat>
         <v-toolbar-title>Patient Registry</v-toolbar-title>
         <v-divider class="mx-2" inset vertical></v-divider>
@@ -42,16 +43,19 @@
 
 <script>
     import {mapGetters} from 'vuex';
+    import { FETCH_PATIENTS, SET_FOCUS_PATIENT } from '../../../_store/actions.type';
+    import store from '../../../_store';
+
     import EditPatientModal from '../modals/patient/EditPatientModal';
     import AddPatientModal from '../modals/patient/AddPatientModal';
-    import { FETCH_PATIENTS } from '../../../_store/actions.type';
-    import store from '../../../_store';
+    import DeletePatientConfirmationModal from '../modals/patient/DeletePatientConfirmationModal';
 
     export default {
       name: "DashboardPatientRegistry",
       components: {
         EditPatientModal,
-        AddPatientModal
+        AddPatientModal,
+        'delete-confirmation-modal': DeletePatientConfirmationModal,
       },
       data() {
         return {
@@ -90,7 +94,8 @@
           console.error("Something went wrong with editPatient: ", patient);
         },
         deletePatient(patient) {
-          console.log("DELETE PATIENT: ", patient)
+          console.log("DELETE PATIENT: ", patient);
+          store.dispatch(SET_FOCUS_PATIENT, patient);
         }
       },
       computed: {

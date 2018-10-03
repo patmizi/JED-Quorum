@@ -4,6 +4,7 @@ import {
   FETCH_PATIENTS,
   FOCUS_PATIENT,
   ADD_PATIENT,
+  SET_FOCUS_PATIENT,
   RESET_FOCUS_PATIENT,
 } from './actions.type';
 import {
@@ -47,6 +48,9 @@ export const actions = {
         // We should be getting an array but we only want the first element
         context.commit(SET_FOCUSED_PATIENT, data.data[0])
       })
+  },
+  [SET_FOCUS_PATIENT] (context, data) {
+    return context.commit(SET_FOCUS_PATIENT, data);
   },
   [RESET_FOCUS_PATIENT] (context) {
     console.log("WE RESET THE FOCUS STATE");
