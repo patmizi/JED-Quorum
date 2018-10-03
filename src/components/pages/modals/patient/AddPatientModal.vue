@@ -13,14 +13,19 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
-        <v-btn color="secondary" flat @click.native="save" :loading="sending">Update</v-btn>
+        <v-btn color="secondary" flat @click.native="save" :loading="sending">Add</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
     import PatientForm from "../../../forms/PatientForm";
+    import {
+      ADD_PATIENT,
+      FETCH_PATIENTS,
+    } from '../../../../_store/actions.type';
 
     export default {
         name: "AddPatientModal",
@@ -36,7 +41,7 @@
         watch: {
           dialog (val) {
             if(this.$refs && this.$refs.patientForm && val === false) {
-              this.sending = val;
+              this.sending = false;
               this.$refs.patientForm.initForm();
             }
           }
@@ -44,17 +49,21 @@
         methods: {
           save() {
             console.log('SAVING DATA...');
-            let data = this.$refs.patientForm.getFormData();
-            if(data !== null) {
+            if (this.$refs.patientForm.isFormValid()){
               this.sending = true;
               this.$refs.patientForm.setSubmitState(true);
-              // Exec action dispatcher
-              // Wait for API response
-              // Mutate State
-              // Emit a request to update parent view
-              this.dialog = false; // Close dialog after everything is done
+              this.$store.dispatch(ADD_PATIENT, this.focusedPatient)
+                .then(() => {
+                  this.dialog = false;
+                  return this.$store.dispatch(FETCH_PATIENTS);
+                });
             }
           }
+        },
+        computed: {
+          ...mapGetters([
+            'focusedPatient'
+          ])
         }
     }
 </script>

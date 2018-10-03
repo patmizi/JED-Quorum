@@ -1,14 +1,14 @@
 <template>
   <v-form ref="form" v-model="valid">
     <v-text-field
-      v-model="firstName"
+      v-model="focusedPatient.First_Name"
       label="First Name"
       :rules="[rules.required]"
       :disabled="sending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
-      v-model="lastName"
+      v-model="focusedPatient.Last_Name"
       label="Last Name"
       :rules="[rules.required]"
       :disabled="sending"
@@ -16,7 +16,7 @@
     ></v-text-field>
     <v-text-field
       ref="dateOfBirth"
-      v-model="dateOfBirth"
+      v-model="focusedPatient.Date_Of_Birth"
       label="Date Of Birth"
       :rules="[rules.required]"
       :disabled="sending"
@@ -25,15 +25,36 @@
       validate-on-blur
       return-masked-value
     ></v-text-field>
+    <v-radio-group
+      v-model="focusedPatient.Gender"
+      :disabled="sending"
+      :rules="[rules.required]"
+      label="Gender"
+    >
+      <v-layout row wrap>
+        <v-flex s6>
+          <v-radio
+            label="Male"
+            value="M"
+          ></v-radio>
+        </v-flex>
+        <v-flex s6>
+          <v-radio
+            label="Female"
+            value="F"
+          ></v-radio>
+        </v-flex>
+      </v-layout>
+    </v-radio-group>
     <v-text-field
-      v-model="mobileNumber"
+      v-model="focusedPatient.Contact_Number"
       label="Mobile Number"
       :rules="[rules.required]"
       :disabled="sending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
-      v-model="email"
+      v-model="focusedPatient.Email"
       label="E-mail"
       :rules="[rules.required, rules.validEmail]"
       :disabled="sending"
@@ -51,8 +72,12 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import { emailRegex } from "../../lib/helpers/constants";
     import { Address } from "../../lib/models/address";
+    import {
+      RESET_FOCUS_PATIENT,
+    } from '../../_store/actions.type';
 
     export default {
       name: "PatientForm",
@@ -60,12 +85,6 @@
           return {
             valid: false,
             sending: false,
-            firstName: "",
-            lastName: "",
-            dateOfBirth: "",
-            email: "",
-            mobileNumber: "",
-            address: null,
             rules: {
               required: value => !!value || 'Required.',
               validEmail: e => emailRegex.test(e) || 'Please enter a valid email address',
@@ -75,33 +94,18 @@
         methods: {
           onSelectAddress(address) {
             if(address !== null && address !== undefined) {
-              this.address = new Address(address).asQuorum();
+              this.focusedPatient.address = new Address(address).asQuorum();
             }
           },
-          getFormData() {
+          isFormValid() {
             this.$refs.form.validate();
-            if(this.valid){
-              return {
-                email: this.email,
-                fullName: [this.firstName, this.lastName].join(' '),
-                firstName: this.firstName,
-                lastName: this.lastName,
-                contactNumber: this.mobileNumber,
-                dateOfBirth: this.dateOfBirth,
-                address: this.address
-              };
-            }
-            return null;
+            console.log("FOCUSED PATIENT STATE: ", this.focusedPatient);
+            return this.valid;
           },
           initForm() {
             this.valid = false;
             this.sending = false;
-            this.firstName = "";
-            this.lastName = "";
-            this.dateOfBirth = "";
-            this.email = "";
-            this.mobileNumber = "";
-            this.address = null;
+            this.$store.dispatch(RESET_FOCUS_PATIENT);
             this.$refs.form.reset();
           },
           /**
@@ -111,6 +115,11 @@
           setSubmitState(state) {
             this.sending = state;
           }
+        },
+        computed: {
+          ...mapGetters([
+            'focusedPatient'
+          ])
         }
     }
 </script>
