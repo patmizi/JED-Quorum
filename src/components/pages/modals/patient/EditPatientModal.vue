@@ -6,39 +6,59 @@
       </v-card-title>
 
       <v-card-text>
-        PLACEHOLDER
+        <PatientForm ref="patientForm"></PatientForm>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" flat @click.native="close">Close</v-btn>
-        <v-btn color="secondary" flat @click.native="save">Update</v-btn>
+        <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
+        <v-btn color="secondary" flat @click.native="edit" :loading="sending">Edit</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+    import {mapGetters} from 'vuex';
+    import PatientForm from "../../../forms/PatientForm";
+
     export default {
         name: "EditPatientModal",
+        components: {
+          PatientForm
+        },
         data() {
           return {
             dialog: false,
+            sending: false,
+          }
+        },
+        watch: {
+          dialog (val) {
+            if(this.$refs && this.$refs.patientForm && val === false) {
+              this.sending = false;
+              this.$refs.patientForm.initForm();
+              this.$emit('closemodal');
+            }
           }
         },
         methods: {
-          openModal(patientId) {
-            console.log("OPENING MODAL WITH ID: ", patientId);
+          edit() {
+            console.log('SAVING DATA...');
+            if (this.$refs.patientForm.isFormValid()) {
+              this.sending = true;
+              this.$refs.patientForm.setSubmitState(true);
+              this.dialog = false;
+            }
+          },
+          openModal() {
             this.dialog = true;
           },
-          close() {
-            console.log('CLOSING MODAL...');
-            this.dialog = false;
-          },
-          save() {
-            console.log('SAVING DATA...');
-            this.close();
-          }
+        },
+        computed: {
+          ...mapGetters([
+            'focusedPatient'
+          ])
         }
     }
 </script>

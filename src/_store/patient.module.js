@@ -7,6 +7,7 @@ import {
   SET_FOCUS_PATIENT,
   RESET_FOCUS_PATIENT,
   DELETE_PATIENT,
+  STATE_RESET,
 } from './actions.type';
 import {
   SET_PATIENTS,
@@ -72,6 +73,9 @@ export const actions = {
         console.log("Got response...", res);
         return context.commit(RESET_FOCUSED_PATIENT_STATE);
       })
+  },
+  [STATE_RESET] (context) {
+    return context.commit(RESET_STATE);
   }
 };
 
@@ -91,6 +95,7 @@ export const mutations = {
     }
   },
   [RESET_STATE] () {
+    console.warn("PATIENT STATE IS BEING RESET...");
     for (let i in state) {
       Vue.set(state, i, initialState[i])
     }

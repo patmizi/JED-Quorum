@@ -5,7 +5,7 @@
         <v-toolbar-title>Patient Registry</v-toolbar-title>
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <AddPatientModal ref="addPatientModal"></AddPatientModal>
+        <AddPatientModal ref="addPatientModal" v-on:closemodal="initialize"></AddPatientModal>
         <!--<v-btn @click="initialize">REFRESH</v-btn>-->
       </v-toolbar>
       <v-data-table
@@ -37,13 +37,13 @@
           <v-btn color="primary" @click="initialize">Refresh</v-btn>
         </template>
       </v-data-table>
-      <EditPatientModal ref="editPatientModal"></EditPatientModal>
+      <EditPatientModal ref="editPatientModal" v-on:closemodal="initialize"></EditPatientModal>
     </div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex';
-    import { FETCH_PATIENTS, SET_FOCUS_PATIENT } from '../../../_store/actions.type';
+    import { FETCH_PATIENTS, SET_FOCUS_PATIENT, RESET_FOCUS_PATIENT, STATE_RESET } from '../../../_store/actions.type';
     import store from '../../../_store';
 
     import EditPatientModal from '../modals/patient/EditPatientModal';
@@ -72,7 +72,10 @@
         }
       },
       created() {
-          this.initialize()
+          store.dispatch(STATE_RESET)
+            .then(() => {
+              this.initialize()
+            });
       },
       methods: {
         initialize() {
@@ -87,11 +90,15 @@
         },
         editPatient(patient) {
           console.log("EDIT PATIENT: ", patient);
+          store.dispatch(RESET_FOCUS_PATIENT);
           if(this.$refs && this.$refs.editPatientModal && patient.Patient_Id){
-            this.$refs.editPatientModal.openModal(patient.Patient_Id);
-            return;
+            store.dispatch(SET_FOCUS_PATIENT, patient)
+              .then(() => {
+                this.$refs.editPatientModal.openModal();
+              });
+          }else {
+            console.error("Something went wrong. Horrible wrong... ", patient);
           }
-          console.error("Something went wrong with editPatient: ", patient);
         },
         deletePatient(patient) {
           console.log("DELETE PATIENT: ", patient);

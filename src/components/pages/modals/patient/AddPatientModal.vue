@@ -13,7 +13,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
-        <v-btn color="secondary" flat @click.native="save" :loading="sending">Add</v-btn>
+        <v-btn color="secondary" flat @click.native="add" :loading="sending">Add</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -24,7 +24,6 @@
     import PatientForm from "../../../forms/PatientForm";
     import {
       ADD_PATIENT,
-      FETCH_PATIENTS,
       RESET_FOCUS_PATIENT,
     } from '../../../../_store/actions.type';
 
@@ -44,11 +43,12 @@
             if(this.$refs && this.$refs.patientForm && val === false) {
               this.sending = false;
               this.$refs.patientForm.initForm();
+              this.$emit('closemodal');
             }
           }
         },
         methods: {
-          save() {
+          add() {
             console.log('SAVING DATA...');
             if (this.$refs.patientForm.isFormValid()){
               this.sending = true;
@@ -56,13 +56,13 @@
               this.$store.dispatch(ADD_PATIENT, this.focusedPatient)
                 .then(() => {
                   this.dialog = false;
-                  return this.$store.dispatch(FETCH_PATIENTS);
                 });
             }
           },
           openModal() {
             this.$store.dispatch(RESET_FOCUS_PATIENT);
-          }
+            this.$refs.patientForm.initForm();
+          },
         },
         computed: {
           ...mapGetters([
