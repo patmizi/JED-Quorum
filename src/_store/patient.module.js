@@ -26,7 +26,7 @@ const initialState = {
     "First_Name": "",
     "Gender": "",
     "Last_Name": "",
-    "address": null,
+    "address": {},
   },
   patients: []
 };
