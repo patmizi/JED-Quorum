@@ -20,13 +20,13 @@ import { Address } from "../models/address";
  */
 export function compileUserRegistrationMetadata(formData) {
   return {
-    email: formData.email,
-    full_name: formData.fullName,
-    business_role: formData.businessRole,
-    first_name: formData.firstName,
-    last_name: formData.lastName,
-    contact_number: formData.contactNumber,
-    date_of_birth: formData.dateOfBirth,
-    address: new Address(formData.address).asQuorum()
+    Email: formData.email,
+    Full_Name: formData.fullName,
+    Business_Role: formData.businessRole,
+    First_Name: formData.firstName,
+    Last_Name: formData.lastName,
+    Contact_Number: formData.contactNumber,
+    Date_Of_Birth: formData.dateOfBirth,
+    Address: new Address(formData.address).asQuorum()
   }
 }
