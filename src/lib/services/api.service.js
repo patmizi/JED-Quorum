@@ -27,10 +27,11 @@ const ApiService = {
           })
     },
     update(res, id="", params={}){
+        console.log(`endpoint: ${res}/${id}`);
         return Vue.axios
-          .patch(`${res}/${id}`, params)
+          .put(`${res}/${id}`, params)
           .catch((err) => {
-            throw new Error(`[PATCH] error at ${res}/${id} with params ${params} => ${err}`);
+            throw new Error(`[PUT] error at ${res}/${id} with params ${params} => ${err}`);
           })
     },
     delete(res, id=""){
@@ -73,6 +74,7 @@ export const PatientService = {
     return ApiService.get('patients', id)
   },
   update(id, data) {
+    console.log("params: ", id, data);
     return ApiService.update('patients', id, data)
   },
   delete(id) {

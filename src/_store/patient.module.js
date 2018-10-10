@@ -7,6 +7,7 @@ import {
   SET_FOCUS_PATIENT,
   RESET_FOCUS_PATIENT,
   DELETE_PATIENT,
+  UPDATE_PATIENT,
   STATE_RESET,
 } from './actions.type';
 import {
@@ -71,6 +72,14 @@ export const actions = {
     return PatientService.delete(id)
       .then((res) => {
         console.log("Got response...", res);
+        return context.commit(RESET_FOCUSED_PATIENT_STATE);
+      })
+  },
+  [UPDATE_PATIENT] (context, data) {
+    console.log('We are updating a patient with data: ', data);
+    return PatientService.update(data.Patient_Id, data)
+      .then((res) => {
+        console.log('We successfully updated a patient: ', res);
         return context.commit(RESET_FOCUSED_PATIENT_STATE);
       })
   },
