@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="dialog" max-width="500px">
-    <v-btn slot="activator" color="primary" @click="openModal">Add Patient</v-btn>
+    <v-btn slot="activator" color="primary" @click="openModal">Add PATIENT</v-btn>
     <v-card>
       <v-card-title>
-        <span class="headline">Add Patient</span>
+        <span class="headline">Add Doctor</span>
       </v-card-title>
 
       <v-card-text>

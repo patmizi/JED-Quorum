@@ -2,11 +2,11 @@
   <v-dialog v-model="dialog" max-width="500px">
     <v-card>
       <v-card-title>
-        <span class="headline">Edit Patient</span>
+        <span class="headline">Edit Doctor</span>
       </v-card-title>
 
       <v-card-text>
-        <PatientForm ref="patientForm"></PatientForm>
+        <DoctorForm ref="doctorForm"></DoctorForm>
       </v-card-text>
 
       <v-card-actions>
@@ -20,12 +20,12 @@
 
 <script>
     import {mapGetters} from 'vuex';
-    import PatientForm from "../../../forms/PatientForm";
+    import DoctorForm from "../../../forms/DoctorForm";
 
     export default {
-        name: "EditPatientModal",
+        name: "EditDoctorModal",
         components: {
-          PatientForm
+          DoctorForm
         },
         data() {
           return {
@@ -35,9 +35,9 @@
         },
         watch: {
           dialog (val) {
-            if(this.$refs && this.$refs.patientForm && val === false) {
+            if(this.$refs && this.$refs.doctorForm && val === false) {
               this.sending = false;
-              this.$refs.patientForm.initForm();
+              this.$refs.doctorForm.initForm();
               this.$emit('closemodal');
             }
           }
@@ -45,9 +45,9 @@
         methods: {
           edit() {
             console.log('SAVING DATA...');
-            if (this.$refs.patientForm.isFormValid()) {
+            if (this.$refs.doctorForm.isFormValid()) {
               this.sending = true;
-              this.$refs.patientForm.setSubmitState(true);
+              this.$refs.doctorForm.setSubmitState(true);
               this.dialog = false;
             }
           },
@@ -57,7 +57,7 @@
         },
         computed: {
           ...mapGetters([
-            'focusedPatient'
+            'focusedDoctor'
           ])
         }
     }

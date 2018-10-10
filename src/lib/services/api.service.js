@@ -28,7 +28,7 @@ const ApiService = {
     },
     update(res, id="", params={}){
         return Vue.axios
-          .put(`${res}/${id}`, params)
+          .patch(`${res}/${id}`, params)
           .catch((err) => {
             throw new Error(`[PATCH] error at ${res}/${id} with params ${params} => ${err}`);
           })

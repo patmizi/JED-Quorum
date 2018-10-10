@@ -1,12 +1,16 @@
 <template>
   <div>
     <v-container>
-      <v-layout row class="text-xs-center">
+      <v-toolbar color="primary">
+        <v-icon style="margin-left: 37%;">assignment</v-icon>
+        <v-toolbar-title>Doctor Case Management System</v-toolbar-title>
+     </v-toolbar>
+      <v-layout row class="text-xs-center" style="margin-top: 5%; margin-left: 20%; margin-right: 20%;">
         <v-flex xs0 sm2></v-flex>
         <v-flex xs12 sm8>
           <v-card flat>
             <v-layout>
-              <v-flex xs1 md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
+              <v-flex xs1 md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg'); margin-right: 10px;">
                 <v-card :height="matchFormHeight"></v-card>
               </v-flex>
               <v-flex>

@@ -27,50 +27,50 @@
 </template>
 
 <script>
-    import { emailRegex } from "../../lib/helpers/constants";
+  import {emailRegex} from "../../lib/helpers/constants";
 
-    export default {
-        name: "LoginForm",
-        data() {
+  export default {
+    name: "LoginForm",
+    data() {
+      return {
+        showPassword: false,
+        username: "",
+        password: "",
+        valid: false,
+        sending: false,
+        rules: {
+          required: value => !!value || 'Required.',
+          validEmail: e => emailRegex.test(e) || 'Please enter a valid email address'
+        }
+      }
+    },
+    methods: {
+      getFormValue() {
+        this.$refs.form.validate();
+        if (this.valid) {
           return {
-            showPassword: false,
-            username: "",
-            password: "",
-            valid: false,
-            sending: false,
-            rules: {
-              required: value => !!value || 'Required.',
-              validEmail: e => emailRegex.test(e) || 'Please enter a valid email address'
-            }
-          }
-        },
-        methods:{
-          getFormValue() {
-            this.$refs.form.validate();
-            if(this.valid){
-              return {
-                username: this.username,
-                password: this.password
-              };
-            }
-            return null;
-          },
-          failLogin() {
-            this.valid = false;
-            this.$nextTick(function() {
-              this.$refs.usernameField.error = true;
-              this.$refs.passwordField.error = true;
-            });
-          },
-          /**
-           * Sets the sending state to true or false
-           * @param state {Boolean}
-           */
-          setSubmitState(state) {
-            this.sending = state;
-          }
-        },
-    }
+            username: this.username,
+            password: this.password
+          };
+        }
+        return null;
+      },
+      failLogin() {
+        this.valid = false;
+        this.$nextTick(function () {
+          this.$refs.usernameField.error = true;
+          this.$refs.passwordField.error = true;
+        });
+      },
+      /**
+       * Sets the sending state to true or false
+       * @param state {Boolean}
+       */
+      setSubmitState(state) {
+        this.sending = state;
+      }
+    },
+  }
 </script>
 
 <style scoped>
