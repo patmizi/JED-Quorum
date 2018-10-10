@@ -52,7 +52,7 @@
               this.$store.dispatch(UPDATE_PATIENT, this.focusedPatient)
                 .then(() => {
                   this.dialog = false;
-                });
+                })
             }
           },
           openModal() {
