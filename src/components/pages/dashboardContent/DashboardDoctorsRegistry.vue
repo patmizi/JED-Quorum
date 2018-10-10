@@ -5,7 +5,7 @@
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
          <AddDoctorModal ref="addDoctorModal" v-on:closemodal="initialize"></AddDoctorModal>
-        <!--<v-btn @click="initialize">REFRESH</v-btn>-->
+        <v-btn @click="initialize">REFRESH</v-btn>
       </v-toolbar>
       <v-data-table
         :headers="headers"
