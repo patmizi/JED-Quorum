@@ -27,6 +27,6 @@ export function compileUserRegistrationMetadata(formData) {
     Last_Name: formData.lastName,
     Contact_Number: formData.contactNumber,
     Date_Of_Birth: formData.dateOfBirth,
-    Address: new Address(formData.address).asQuorum()
+    address: new Address(formData.address).asQuorum()
   }
 }

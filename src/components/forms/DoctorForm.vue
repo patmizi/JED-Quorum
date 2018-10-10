@@ -1,14 +1,14 @@
 <template>
   <v-form ref="form" v-model="valid">
     <v-text-field
-      v-model="focusedPatient.First_Name"
+      v-model="focusedDoctor.First_Name"
       label="First Name"
       :rules="[rules.required]"
       :disabled="sending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
-      v-model="focusedPatient.Last_Name"
+      v-model="focusedDoctor.Last_Name"
       label="Last Name"
       :rules="[rules.required]"
       :disabled="sending"
@@ -16,7 +16,7 @@
     ></v-text-field>
     <v-text-field
       ref="dateOfBirth"
-      v-model="focusedPatient.Date_Of_Birth"
+      v-model="focusedDoctor.Date_Of_Birth"
       label="Date Of Birth"
       :rules="[rules.required]"
       :disabled="sending"
@@ -26,7 +26,7 @@
       return-masked-value
     ></v-text-field>
     <v-radio-group
-      v-model="focusedPatient.Gender"
+      v-model="focusedDoctor.Gender"
       :disabled="sending"
       :rules="[rules.required]"
       label="Gender"
@@ -47,14 +47,14 @@
       </v-layout>
     </v-radio-group>
     <v-text-field
-      v-model="focusedPatient.Contact_Number"
+      v-model="focusedDoctor.Contact_Number"
       label="Mobile Number"
       :rules="[rules.required]"
       :disabled="sending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
-      v-model="focusedPatient.Email"
+      v-model="focusedDoctor.Email"
       label="E-mail"
       :rules="[rules.required, rules.validEmail]"
       :disabled="sending"
@@ -76,12 +76,12 @@
     import { emailRegex } from "../../lib/helpers/constants";
     import { Address } from "../../lib/models/address";
     import {
-      RESET_FOCUS_PATIENT,
+      RESET_FOCUS_DOCTOR,
     } from '../../_store/actions.type';
     import store from '../../_store';
 
     export default {
-      name: "PatientForm",
+      name: "DoctorForm",
       data() {
           return {
             valid: false,
@@ -95,18 +95,18 @@
         methods: {
           onSelectAddress(address) {
             if(address !== null && address !== undefined) {
-              this.focusedPatient.address = new Address(address).asQuorum();
+              this.focusedDoctor.address = new Address(address).asQuorum();
             }
           },
           isFormValid() {
             this.$refs.form.validate();
-            console.log("FOCUSED PATIENT STATE: ", this.focusedPatient);
+            console.log("FOCUSED DOCTOR STATE: ", this.focusedDoctor);
             return this.valid;
           },
           initForm() {
             this.valid = false;
             this.sending = false;
-            store.dispatch(RESET_FOCUS_PATIENT);
+            store.dispatch(RESET_FOCUS_DOCTOR);
             this.$refs.form.reset();
           },
           /**
@@ -119,7 +119,7 @@
         },
         computed: {
           ...mapGetters([
-            'focusedPatient'
+            'focusedDoctor'
           ])
         }
     }
