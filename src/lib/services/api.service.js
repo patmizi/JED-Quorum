@@ -44,25 +44,25 @@ export default ApiService;
 
 export const DoctorService = {
   get_all() {
-    return ApiService.get('doctors')
+    return ApiService.get('doctors');
   },
   get(id) {
-    return ApiService.get('doctors', id)
+    return ApiService.get('doctors', id);
   },
   update(id, data) {
-    return ApiService.update('doctors', id, data)
+    return ApiService.update('doctors', id, data);
   }
 };
 
 export const ReceptionistService = {
   get_all() {
-    return ApiService.get('receptionists')
+    return ApiService.get('receptionists');
   },
   get(id) {
-    return ApiService.get('receptionists', id)
+    return ApiService.get('receptionists', id);
   },
   update(id, data) {
-    return ApiService.update('receptionists', id, data)
+    return ApiService.update('receptionists', id, data);
   }
 };
 
@@ -71,16 +71,30 @@ export const PatientService = {
     return ApiService.get('patients', '');
   },
   get(id) {
-    return ApiService.get('patients', id)
+    return ApiService.get('patients', id);
   },
   update(id, data) {
     console.log("params: ", id, data);
-    return ApiService.update('patients', id, data)
+    return ApiService.update('patients', id, data);
   },
   delete(id) {
-    return ApiService.delete('patients', id)
+    return ApiService.delete('patients', id);
   },
   add(data) {
-    return ApiService.post('patients', data)
+    return ApiService.post('patients', data);
   }
+};
+
+export const MedicalCaseService = {
+  get(id) {
+    return ApiService.get('cases', id);
+  },
+  add(data) {
+    console.log("Adding medical case with data: ", data);
+    return ApiService.post('cases', data);
+  },
+  update(id, data) {
+    console.log('Update medical case params: ', id, data);
+    return ApiService.update('cases', id, data);
+  },
 };

@@ -1,11 +1,15 @@
 <template>
   <div>
     <v-list two-line>
-      <!--<v-subheader>Medical Cases</v-subheader>-->
+      <v-subheader>
+        History
+        <v-spacer></v-spacer>
+        <v-btn @click="openAddModal" primary>Add</v-btn>
+      </v-subheader>
       <template v-for="(item, index) in focusedPatientMedicalCases">
         <v-list-tile
-          :key="item.Medical_Case_Id"
-          @click="openAddModal"
+          :key="index"
+          @click="openEditModal(item)"
           class="elevation-1 tile-component"
         >
           <v-list-tile-content>
@@ -19,28 +23,35 @@
       </template>
     </v-list>
     <AddMedicalCaseModal ref="addMedicalCaseModal"></AddMedicalCaseModal>
+    <EditMedicalCaseModal ref="editMedicalCaseModal"></EditMedicalCaseModal>
   </div>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
     import AddMedicalCaseModal from '../pages/modals/cases/AddMedicalCaseModal';
+    import EditMedicalCaseModal from '../pages/modals/cases/EditMedicalCaseModal';
+    import {SET_FOCUS_CASE} from '../../_store/actions.type';
 
     export default {
         name: "MedicalCaseList",
         components: {
-          AddMedicalCaseModal
+          AddMedicalCaseModal,
+          EditMedicalCaseModal,
         },
         data() {
-          return {
-            dialog: false
-          }
+          return {}
         },
         methods: {
           openAddModal() {
             console.log("opening modal...");
             this.$refs.addMedicalCaseModal.openModal();
           },
+          openEditModal(medicalCase) {
+            console.log('opening edit modal...', medicalCase);
+            this.$store.dispatch(SET_FOCUS_CASE, medicalCase);
+            this.$refs.editMedicalCaseModal.openModal();
+          }
         },
         computed: {
           ...mapGetters([

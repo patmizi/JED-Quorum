@@ -10,7 +10,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
-          <v-btn color="secondary" flat @click.native="edit" :loading="sending">Add</v-btn>
+          <v-btn color="secondary" flat @click.native="add" :loading="sending">Add</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -55,11 +55,11 @@
               this.sending = true;
               this.$refs.medicalCaseForm.setSubmitState(true);
               console.log("Adding focusedMedicalCase: ", this.focusedMedicalCase);
-              this.$store.dispatch(ADD_CASE, this.focusedMedicalCase)
-                .then(() => {
-                  this.dialog = false;
-                  this.$store.dispatch(SUCCESS_ALERT, 'Added Patient')
-                });
+              // this.$store.dispatch(ADD_CASE, this.focusedMedicalCase)
+              //   .then(() => {
+              //     this.dialog = false;
+              //     this.$store.dispatch(SUCCESS_ALERT, 'Added Patient')
+              //   });
             }
           }
         },

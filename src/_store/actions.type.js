@@ -21,5 +21,6 @@ export const FETCH_CASES = 'getPatientMedicalCases';
 export const SET_FOCUS_CASE = 'setFocusedMedicalCase';
 export const ADD_CASE = 'addPatientMedicalCase';
 export const UPDATE_FOCUSED_CASE = 'updateFocusedMedicalCase';
+export const SET_FOCUSED_PATIENT_CASE = 'setFocusedPatientIdCase';
 
 export const STATE_RESET = 'resetState';

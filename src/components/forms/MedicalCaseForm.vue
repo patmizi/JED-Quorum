@@ -21,11 +21,13 @@
       label="Attached Doctors"
       multiple
       deletable-chips
+      return-object
     ></v-select>
     <v-textarea
       v-model="focusedMedicalCase.Medical_Case_Description"
       label="Case notes go here"
       :disabled="sending"
+      :rules="[rules.required]"
     ></v-textarea>
   </v-form>
 </template>
@@ -34,7 +36,8 @@
     import {mapGetters} from 'vuex';
     import store from '../../_store';
     import {
-      RESET_FOCUS_CASE
+      RESET_FOCUS_CASE,
+      SET_FOCUSED_PATIENT_CASE,
     } from '../../_store/actions.type';
 
     export default {
@@ -51,15 +54,22 @@
         methods: {
           isFormValid() {
             this.$refs.form.validate();
-            console.log("FOCUSED MEDICAL CASE STATE: ", this.focusedMedicalCase);
             return this.valid;
           },
           initForm() {
             this.valid = false;
             this.sending = false;
             store.dispatch(RESET_FOCUS_CASE);
+            store.dispatch(SET_FOCUSED_PATIENT_CASE, this.focusedPatient.Patient_Id);
             this.$refs.form.reset();
           },
+          /**
+           * Sets the sending state to true or false
+           * @param state {Boolean}
+           */
+          setSubmitState(state) {
+            this.sending = state;
+          }
         },
         computed: {
           ...mapGetters([
