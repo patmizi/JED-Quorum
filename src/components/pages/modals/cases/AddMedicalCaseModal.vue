@@ -1,5 +1,5 @@
 <template>
-    <v-dialog>
+    <v-dialog v-model="dialog" max-width="800px">
       <v-card>
         <v-card-title>Add Medical Case</v-card-title>
 
@@ -24,7 +24,7 @@
           dialog (val) {
             if(this.$refs && this.$refs.patientForm && val === false) {
               this.sending = false;
-              this.$refs.patientForm.initForm();
+              this.$refs.medicalCaseForm.initForm();
               this.$emit('closemodal');
             }
           }

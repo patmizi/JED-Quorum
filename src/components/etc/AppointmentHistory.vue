@@ -19,7 +19,7 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  import store from '../../_store';
+  import store from '../../_store/index';
 
   export default {
     name: "AppointmentHistory",

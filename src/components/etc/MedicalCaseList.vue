@@ -1,23 +1,11 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" max-width="600px">
-      <v-card>
-        <v-card-title>Medical Case</v-card-title>
-        <v-card-text>
-          SOME TEXT HERE
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="dialog = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
     <v-list two-line>
       <!--<v-subheader>Medical Cases</v-subheader>-->
       <template v-for="(item, index) in focusedPatientMedicalCases">
         <v-list-tile
           :key="item.Medical_Case_Id"
-          @click="dialog = true"
+          @click="openAddModal"
           class="elevation-1 tile-component"
         >
           <v-list-tile-content>
@@ -39,7 +27,7 @@
     import AddMedicalCaseModal from '../pages/modals/cases/AddMedicalCaseModal';
 
     export default {
-        name: "MedicalCaseForm",
+        name: "MedicalCaseList",
         components: {
           AddMedicalCaseModal
         },
@@ -50,6 +38,7 @@
         },
         methods: {
           openAddModal() {
+            console.log("opening modal...");
             this.$refs.addMedicalCaseModal.openModal();
           },
         },

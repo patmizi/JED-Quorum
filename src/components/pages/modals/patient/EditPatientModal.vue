@@ -17,7 +17,7 @@
             </v-tabs>
             <v-tabs-items v-model="activeTab">
               <v-tab-item :key="'1'" :id="'tab-1'">
-                <MedicalCaseForm red="medicalCaseForm"></MedicalCaseForm>
+                <MedicalCaseList ref="medicalCaseList"></MedicalCaseList>
               </v-tab-item>
               <v-tab-item :key="'2'" :id="'tab-2'">
                 <AppointmentHistory ref="appointmentHistory"></AppointmentHistory>
@@ -39,14 +39,14 @@
 <script>
     import {mapGetters} from 'vuex';
     import PatientForm from "../../../forms/PatientForm";
-    import MedicalCaseForm from '../../../forms/MedicalCaseForm';
-    import AppointmentHistory from '../../../forms/AppointmentHistory';
+    import MedicalCaseList from '../../../etc/MedicalCaseList';
+    import AppointmentHistory from '../../../etc/AppointmentHistory';
     import {UPDATE_PATIENT, SUCCESS_ALERT} from '../../../../_store/actions.type';
     export default {
         name: "EditPatientModal",
         components: {
           PatientForm,
-          MedicalCaseForm,
+          MedicalCaseList,
           AppointmentHistory,
         },
         data() {
