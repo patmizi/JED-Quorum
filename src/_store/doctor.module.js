@@ -5,7 +5,7 @@ import {
   FOCUS_DOCTOR,
   SET_FOCUS_DOCTOR,
   RESET_FOCUS_DOCTOR,
-  STATE_RESET, ADD_DOCTOR,
+  STATE_RESET,
 } from './actions.type';
 import {
   RESET_STATE,
@@ -55,14 +55,6 @@ export const actions = {
   [RESET_FOCUS_DOCTOR](context) {
     console.log("WE RESET THE FOCUS STATE");
     return context.commit(RESET_FOCUSED_DOCTOR_STATE);
-  },
-  [ADD_DOCTOR] (context, data) {
-    console.log("We are adding a doctor: ", data);
-    return DoctorService.add(data)
-      .then((res) => {
-        console.log("We successfully added a doctor: ", res);
-        return context.commit(RESET_FOCUSED_DOCTOR_STATE);
-      });
   },
   [STATE_RESET](context) {
     return context.commit(RESET_STATE);

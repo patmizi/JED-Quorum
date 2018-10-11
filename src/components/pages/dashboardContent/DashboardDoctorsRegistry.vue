@@ -4,8 +4,6 @@
         <v-toolbar-title>Doctor Registry</v-toolbar-title>
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
-         <AddDoctorModal ref="addDoctorModal" v-on:closemodal="initialize"></AddDoctorModal>
-        <v-btn @click="initialize">REFRESH</v-btn>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -19,34 +17,21 @@
           <td class="text-xs-left">{{ props.item.First_Name }}</td>
           <td class="text-xs-left">{{ props.item.Last_Name }}</td>
           <td class="text-xs-left">{{ props.item.Contact_Number }}</td>
-          <td class="layout">
-            <v-icon
-              small
-              class="mr-2"
-              @click="editDoctor(props.item)"
-            >edit</v-icon>
-          </td>
         </template>
         <template slot="no-data">
-          <v-btn color="primary" @click="initialize">Refresh</v-btn>
         </template>
       </v-data-table>
-      <EditDoctorModal ref="editDoctorModal" v-on:closemodal="initialize"></EditDoctorModal>
     </div>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
-    import AddDoctorModal from '../modals/doctor/AddDoctorModal';
-    import EditDoctorModal from '../modals/doctor/EditDoctorModal';
-    import { FETCH_DOCTORS, STATE_RESET, SET_FOCUS_DOCTOR, RESET_FOCUS_DOCTOR } from '../../../_store/actions.type';
+    import { FETCH_DOCTORS, STATE_RESET } from '../../../_store/actions.type';
     import store from '../../../_store';
 
     export default {
       name: "DashboardDoctorsRegistry",
       components: {
-        AddDoctorModal,
-        EditDoctorModal
       },
       data() {
         return {
@@ -56,7 +41,6 @@
             { text: 'First Name', sortable: true, value: 'First_Name'},
             { text: 'Last Name', sortable: true, value: 'Last_Name' },
             { text: 'Contact Number', sortable: false, value: 'Contact_Number' },
-            { text: 'Actions', value: 'Doctor_Id' }
           ],
           editedIndex: -1,
           loading: false
@@ -79,18 +63,6 @@
             this.loading = false;
           })
         },
-        editDoctor(doctor) {
-          console.log("EDIT DOCTOR: ", doctor);
-          store.dispatch(RESET_FOCUS_DOCTOR);
-          if(this.$refs && this.$refs.editDoctorModal && doctor.Doctor_Id){
-            store.dispatch(SET_FOCUS_DOCTOR, doctor)
-              .then(() => {
-                this.$refs.editDoctorModal.openModal();
-              });
-          }else {
-            console.error("Something went wrong. Horrible wrong... ", doctor);
-          }
-        }
       },
       computed: {
         ...mapGetters([
