@@ -41,7 +41,7 @@
     import PatientForm from "../../../forms/PatientForm";
     import MedicalCaseForm from '../../../forms/MedicalCaseForm';
     import AppointmentHistory from '../../../forms/AppointmentHistory';
-    import {UPDATE_PATIENT} from '../../../../_store/actions.type';
+    import {UPDATE_PATIENT, SUCCESS_ALERT} from '../../../../_store/actions.type';
     export default {
         name: "EditPatientModal",
         components: {
@@ -74,6 +74,7 @@
               this.$store.dispatch(UPDATE_PATIENT, this.focusedPatient)
                 .then(() => {
                   this.dialog = false;
+                  this.$store.dispatch(SUCCESS_ALERT, 'Edited Patient Information')
                 })
             }
           },

@@ -25,6 +25,7 @@
     import {
       ADD_PATIENT,
       RESET_FOCUS_PATIENT,
+      SUCCESS_ALERT,
     } from '../../../../_store/actions.type';
 
     export default {
@@ -56,6 +57,7 @@
               this.$store.dispatch(ADD_PATIENT, this.focusedPatient)
                 .then(() => {
                   this.dialog = false;
+                  this.$store.dispatch(SUCCESS_ALERT, 'Added Patient')
                 });
             }
           },

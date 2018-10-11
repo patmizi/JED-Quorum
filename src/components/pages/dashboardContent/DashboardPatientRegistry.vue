@@ -6,7 +6,7 @@
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <AddPatientModal ref="addPatientModal" v-on:closemodal="initialize"></AddPatientModal>
-        <!--<v-btn @click="initialize">REFRESH</v-btn>-->
+        <v-btn @click="test">REFRESH</v-btn>
       </v-toolbar>
       <v-data-table
         :headers="headers"
@@ -43,7 +43,7 @@
 
 <script>
     import {mapGetters} from 'vuex';
-    import { FETCH_PATIENTS, SET_FOCUS_PATIENT, RESET_FOCUS_PATIENT, STATE_RESET } from '../../../_store/actions.type';
+    import { FETCH_PATIENTS, SET_FOCUS_PATIENT, RESET_FOCUS_PATIENT, STATE_RESET, SUCCESS_ALERT } from '../../../_store/actions.type';
     import store from '../../../_store';
 
     import EditPatientModal from '../modals/patient/EditPatientModal';
@@ -106,6 +106,9 @@
             .then(() => {
               this.$refs.deletePatientModal.openModal();
             });
+        },
+        test(){
+          store.dispatch(SUCCESS_ALERT, 'SUCCESS')
         }
       },
       computed: {

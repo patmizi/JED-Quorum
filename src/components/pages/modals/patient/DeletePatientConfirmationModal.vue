@@ -38,6 +38,7 @@
       DELETE_PATIENT,
       RESET_FOCUS_PATIENT,
       FETCH_PATIENTS,
+      SUCCESS_ALERT,
     } from '../../../../_store/actions.type';
 
     export default {
@@ -67,6 +68,7 @@
                 console.log('Deleted patient response: ', res);
                 this.dialog = false;
                 this.$store.dispatch(FETCH_PATIENTS);
+                this.$store.dispatch(SUCCESS_ALERT, 'Deleted Patient');
               });
           },
           openModal() {
