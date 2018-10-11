@@ -16,4 +16,10 @@ export const SUCCESS_ALERT = 'alertSuccess';
 export const INFO_ALERT = 'alertInfo';
 export const ERROR_ALERT = 'alertError';
 
+export const RESET_FOCUS_CASE = 'resetFocusedMedicalCase';
+export const FETCH_CASES = 'getPatientMedicalCases';
+export const SET_FOCUS_CASE = 'setFocusedMedicalCase';
+export const ADD_CASE = 'addPatientMedicalCase';
+export const UPDATE_FOCUSED_CASE = 'updateFocusedMedicalCase';
+
 export const STATE_RESET = 'resetState';

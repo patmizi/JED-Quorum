@@ -9,7 +9,7 @@
           class="elevation-1 tile-component"
         >
           <v-list-tile-content>
-            <v-list-tile-title>Case Id:{{item.Medical_Case_Id}} - {{item.Medical_Case_Name}}</v-list-tile-title>
+            <v-list-tile-title>{{item.Medical_Case_Name}}</v-list-tile-title>
             <v-list-tile-sub-title>{{item.Medical_Case_Description}}</v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-action>

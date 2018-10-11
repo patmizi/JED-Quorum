@@ -10,4 +10,8 @@ export const ALERT_SUCCESS = 'alertSuccess';
 export const ALERT_INFO = 'alertInfo';
 export const ALERT_ERROR = 'alertError';
 
+export const SET_CASES = 'setFocusedPatientMedicalCases';
+export const SET_FOCUSED_CASE = 'setFocusedMedicalCase';
+export const RESET_FOCUSED_CASE = 'resetFocusedCase';
+
 export const RESET_STATE = 'resetState';
