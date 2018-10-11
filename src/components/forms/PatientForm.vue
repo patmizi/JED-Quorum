@@ -65,6 +65,7 @@
       id="map"
       append-icon="search"
       placeholder="Search Address"
+      label="Address"
       v-on:placechanged="onSelectAddress"
       :disabled="sending"
       :value="addressText"

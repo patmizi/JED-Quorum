@@ -1,12 +1,28 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500px">
+  <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
     <v-card>
       <v-card-title>
-        <span class="headline">Edit Patient</span>
+        <span class="headline">Edit Patient Details</span>
       </v-card-title>
 
       <v-card-text>
-        <PatientForm ref="patientForm"></PatientForm>
+        <v-layout row fill-height>
+          <v-flex s5>
+            <PatientForm ref="patientForm"></PatientForm>
+          </v-flex>
+          <v-flex s7>
+            <v-tabs v-model="activeTab">
+              <v-tab ripple>Medical Cases</v-tab>
+              <v-tab-item>
+                <MedicalCaseForm red="medicalCaseForm"></MedicalCaseForm>
+              </v-tab-item>
+              <v-tab ripple>Appointment History</v-tab>
+              <v-tab-item>
+                <AppointmentHistory ref="appointmentHistory"></AppointmentHistory>
+              </v-tab-item>
+            </v-tabs>
+          </v-flex>
+        </v-layout>
       </v-card-text>
 
       <v-card-actions>
@@ -21,17 +37,21 @@
 <script>
     import {mapGetters} from 'vuex';
     import PatientForm from "../../../forms/PatientForm";
+    import MedicalCaseForm from '../../../forms/MedicalCaseForm';
+    import AppointmentHistory from '../../../forms/AppointmentHistory';
     import {UPDATE_PATIENT} from '../../../../_store/actions.type';
-
     export default {
         name: "EditPatientModal",
         components: {
-          PatientForm
+          PatientForm,
+          MedicalCaseForm,
+          AppointmentHistory,
         },
         data() {
           return {
             dialog: false,
             sending: false,
+            activeTab: null,
           }
         },
         watch: {
