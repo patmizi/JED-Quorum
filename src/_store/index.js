@@ -4,6 +4,7 @@ import { authentication } from "./jwt-auth.module";
 import patients from './patient.module';
 import doctors from './doctor.module';
 import alerts from './alerts.module';
+import cases from './medical-case.module';
 import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
@@ -15,5 +16,6 @@ export default new Vuex.Store({
     patients,
     doctors,
     alerts,
+    cases,
   }
 });

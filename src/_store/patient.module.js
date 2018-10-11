@@ -30,20 +30,6 @@ const initialState = {
     "address": {},
   },
   patients: [],
-  focusedPatientMedicalCases: [
-    {
-      "Medical_Case_id": 1,
-      "Patient_Id": 1,
-      "Medical_Case_Name": "Common Cold",
-      "Medical_Case_Description": "Patient has a runny nose and a sore throat. No prescription required"
-    },
-    {
-      "Medical_Case_id": 2,
-      "Patient_Id": 1,
-      "Medical_Case_Name": "Fever",
-      "Medical_Case_Description": "Patient had a fever as a result of infection via tropical virus. recorded temperature was well over 40 degrees. Prescribed patient with antibiotic"
-    }
-  ]
 };
 
 export const state = Object.assign({}, initialState);
@@ -131,9 +117,6 @@ const getters = {
   },
   focusedPatient(state) {
     return state.focusedPatient;
-  },
-  focusedPatientMedicalCases(state) {
-    return state.focusedPatientMedicalCases;
   },
 };
 

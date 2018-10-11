@@ -12,8 +12,8 @@
           </v-flex>
           <v-flex s6 class="grid-col">
             <v-tabs v-model="activeTab">
-              <v-tab :href="'#tab-1'" :key="'1'" ripple>Medical Cases</v-tab>
-              <v-tab :href="'#tab-2'" :key="'2'" ripple>Appointment History</v-tab>
+              <v-tab :key="'1'" ripple>Medical Cases</v-tab>
+              <v-tab :key="'2'" ripple>Appointment History</v-tab>
             </v-tabs>
             <v-tabs-items v-model="activeTab">
               <v-tab-item :key="'1'" :id="'tab-1'">
