@@ -19,7 +19,7 @@
                 </v-flex>
               </v-layout>
             </v-flex>
-            <v-flex sm12>
+            <v-flex xs12>
               <v-card height="100%" class="dashboard-item">
                 <v-card-title>Upcoming Appointments</v-card-title>
                 <v-data-table
@@ -49,7 +49,7 @@
           return {
             cardHeight: '80px',
             statistics:[
-              {label:"Doctors", value: 10},
+              {label: "Doctors", value: 10 },
               {label: "Patients", value: 20}
             ],
             tableHeaders:[
