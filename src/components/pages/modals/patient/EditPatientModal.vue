@@ -7,20 +7,22 @@
 
       <v-card-text>
         <v-layout row fill-height>
-          <v-flex s5>
+          <v-flex s6 class="grid-col">
             <PatientForm ref="patientForm"></PatientForm>
           </v-flex>
-          <v-flex s7>
+          <v-flex s6 class="grid-col">
             <v-tabs v-model="activeTab">
-              <v-tab ripple>Medical Cases</v-tab>
-              <v-tab-item>
+              <v-tab :href="'#tab-1'" :key="'1'" ripple>Medical Cases</v-tab>
+              <v-tab :href="'#tab-2'" :key="'2'" ripple>Appointment History</v-tab>
+            </v-tabs>
+            <v-tabs-items v-model="activeTab">
+              <v-tab-item :key="'1'" :id="'tab-1'">
                 <MedicalCaseForm red="medicalCaseForm"></MedicalCaseForm>
               </v-tab-item>
-              <v-tab ripple>Appointment History</v-tab>
-              <v-tab-item>
+              <v-tab-item :key="'2'" :id="'tab-2'">
                 <AppointmentHistory ref="appointmentHistory"></AppointmentHistory>
               </v-tab-item>
-            </v-tabs>
+            </v-tabs-items>
           </v-flex>
         </v-layout>
       </v-card-text>
@@ -51,7 +53,7 @@
           return {
             dialog: false,
             sending: false,
-            activeTab: null,
+            activeTab: "1",
           }
         },
         watch: {
@@ -88,5 +90,8 @@
 </script>
 
 <style scoped>
-
+  .grid-col {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 </style>
