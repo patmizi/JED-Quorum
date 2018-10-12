@@ -84,12 +84,12 @@ export const mutations = {
       }
     }
   },
-  [RESET_STATE]() {
-    console.warn("DOCTOR STATE IS BEING RESET...");
-    for (let i in state) {
-      Vue.set(state, i, initialState[i])
-    }
-  }
+  // [RESET_STATE]() {
+  //   console.warn("DOCTOR STATE IS BEING RESET...");
+  //   for (let i in state) {
+  //     Vue.set(state, i, initialState[i])
+  //   }
+  // }
 };
 
 const getters = {

@@ -30,7 +30,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
-        <v-btn color="secondary" flat @click.native="edit" :loading="sending">Edit</v-btn>
+        <v-btn color="secondary" flat @click.native="edit" :loading="sending">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -41,7 +41,7 @@
     import PatientForm from "../../../forms/PatientForm";
     import MedicalCaseList from '../../../etc/MedicalCaseList';
     import AppointmentHistory from '../../../etc/AppointmentHistory';
-    import {UPDATE_PATIENT, SUCCESS_ALERT} from '../../../../_store/actions.type';
+    import {UPDATE_PATIENT, SUCCESS_ALERT, FETCH_CASES} from '../../../../_store/actions.type';
     export default {
         name: "EditPatientModal",
         components: {
@@ -80,6 +80,7 @@
           },
           openModal() {
             this.dialog = true;
+            this.$store.dispatch(FETCH_CASES);
           },
         },
         computed: {

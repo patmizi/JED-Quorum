@@ -6,6 +6,7 @@ import {
   ADD_CASE,
   SET_FOCUS_CASE,
   FETCH_CASES,
+  UPDATE_FOCUSED_CASE,
 } from './actions.type';
 import {
   RESET_STATE,
@@ -13,31 +14,17 @@ import {
   SET_FOCUSED_CASE,
   SET_CASES,
   SET_FOCUSED_PATIENT_ID_CASE,
+  RESET_MEDICAL_CASES,
 } from "./mutations.type";
 
 
 const initialState = {
-  medicalCases: [
-    {
-      Medical_Case_Id: 1,
-      Patient_Id: 1,
-      Medical_Case_Name: "Common Cold",
-      Medical_Case_Description: "Patient has a runny nose and a sore throat. No prescription required",
-      doctors: [],
-    },
-    {
-      Medical_Case_Id: 2,
-      Patient_Id: 1,
-      Medical_Case_Name: "Fever",
-      Medical_Case_Description: "Patient had a fever as a result of infection via tropical virus. recorded temperature was well over 40 degrees. Prescribed patient with antibiotic",
-      doctors: [],
-    }
-  ],
+  medicalCases: [],
   focusedMedicalCase: {
-    Medical_Case_Id: 1,
-    Patient_Id: 1,
-    Medical_Case_Name: "Common Cold",
-    Medical_Case_Description: "Patient has a runny nose and a sore throat. No prescription required",
+    Medical_Case_Id: null,
+    Patient_Id: null,
+    Medical_Case_Name: "",
+    Medical_Case_Description: "",
     doctors: [],
   }
 };
@@ -60,22 +47,29 @@ export const actions = {
         return context.commit(RESET_FOCUSED_CASE);
       })
   },
+  [UPDATE_FOCUSED_CASE] (context, data) {
+    console.log('UDPATING CASE: ', data);
+    return MedicalCaseService.update(data.Medical_Case_Id, data)
+      .then((res) => {
+        return context.commit(RESET_MEDICAL_CASES);
+      });
+  },
   [SET_FOCUS_CASE] (context, data) {
     return context.commit(SET_FOCUSED_CASE, data);
   },
   [FETCH_CASES] (context) {
     // This is under development
-    return context.commit(RESET_STATE);
+    return context.commit(SET_CASES);
   }
 };
 
 export const mutations = {
-  [RESET_STATE] () {
-    console.warn("STATE IS BEING RESET...");
-    for (let i in state) {
-      Vue.set(state, i, initialState[i])
-    }
-  },
+  // [RESET_STATE] () {
+  //   console.warn("STATE IS BEING RESET...");
+  //   for (let i in state) {
+  //     Vue.set(state, i, initialState[i])
+  //   }
+  // },
   [RESET_FOCUSED_CASE] (state) {
     console.warn('FOCUSED CASE STATE IS BEING RESET');
     if(state && state.focusedMedicalCase) {
@@ -84,11 +78,20 @@ export const mutations = {
       }
     }
   },
+  [RESET_MEDICAL_CASES] (state) {
+    console.warn('MEDICAL CASES STATE IS BEING RESET');
+    if(state && state.medicalCases) {
+      Vue.set(state, 'medicalCases', initialState.medicalCases);
+    }
+  },
   [SET_FOCUSED_PATIENT_ID_CASE] (state, id) {
     state.focusedMedicalCase.Patient_Id = id;
   },
   [SET_FOCUSED_CASE] (state, data) {
     state.focusedMedicalCase = data;
+  },
+  [SET_CASES] (state, data) {
+    Vue.set(state, 'medicalCases', data);
   },
 };
 

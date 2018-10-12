@@ -24,15 +24,17 @@
       SUCCESS_ALERT,
       ADD_CASE,
     } from '../../../../_store/actions.type';
+    import store from '../../../../_store';
 
     export default {
       name: "AddMedicalCaseModal",
       components: {MedicalCaseForm},
       watch: {
           dialog (val) {
-            if(this.$refs && this.$refs.patientForm && val === false) {
+            if(this.$refs && this.$refs.medicalCaseForm && val === false) {
               this.sending = false;
               this.$refs.medicalCaseForm.initForm();
+              store.dispatch(RESET_FOCUS_CASE);
               this.$emit('closemodal');
             }
           }
@@ -55,11 +57,11 @@
               this.sending = true;
               this.$refs.medicalCaseForm.setSubmitState(true);
               console.log("Adding focusedMedicalCase: ", this.focusedMedicalCase);
-              // this.$store.dispatch(ADD_CASE, this.focusedMedicalCase)
-              //   .then(() => {
-              //     this.dialog = false;
-              //     this.$store.dispatch(SUCCESS_ALERT, 'Added Patient')
-              //   });
+              this.$store.dispatch(ADD_CASE, this.focusedMedicalCase)
+                .then(() => {
+                  this.dialog = false;
+                  this.$store.dispatch(SUCCESS_ALERT, 'Added Patient')
+                });
             }
           }
         },
