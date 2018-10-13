@@ -23,7 +23,7 @@
     RESET_FOCUS_CASE,
     SUCCESS_ALERT,
     UPDATE_FOCUSED_CASE,
-    FETCH_CASES,
+    REFRESH_FOCUSED_PATIENT,
   } from '../../../../_store/actions.type';
   import store from '../../../../_store';
 
@@ -37,8 +37,7 @@
           this.sending = false;
           this.$refs.medicalCaseForm.initForm();
           store.dispatch(RESET_FOCUS_CASE);
-          store.dispatch(FETCH_CASES);
-          this.$emit('closemodal');
+          store.dispatch(REFRESH_FOCUSED_PATIENT, this.focusedPatient.Patient_Id);
         }
       }
     },
@@ -68,7 +67,8 @@
     },
     computed: {
       ...mapGetters([
-        'focusedMedicalCase'
+        'focusedMedicalCase',
+        'focusedPatient'
       ])
     }
   }

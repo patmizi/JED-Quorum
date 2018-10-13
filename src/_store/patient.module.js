@@ -9,6 +9,7 @@ import {
   DELETE_PATIENT,
   UPDATE_PATIENT,
   STATE_RESET,
+  REFRESH_FOCUSED_PATIENT,
 } from './actions.type';
 import {
   SET_PATIENTS,
@@ -28,6 +29,7 @@ const initialState = {
     "Gender": "",
     "Last_Name": "",
     "address": {},
+    "cases": []
   },
   patients: [],
 };
@@ -44,12 +46,19 @@ export const actions = {
         return data.data;
       })
   },
+  [REFRESH_FOCUSED_PATIENT] (context, id) {
+    return PatientService.get(id)
+      .then((data) => {
+        context.commit(SET_FOCUS_PATIENT, data.data);
+        return data.data;
+      })
+  },
   [FOCUS_PATIENT] (context, id) {
     return PatientService.get(id)
       .then((data) => {
         console.log("GET PATIENT: ", data);
         // We should be getting an array but we only want the first element
-        context.commit(SET_FOCUSED_PATIENT, data.data[0])
+        context.commit(SET_FOCUSED_PATIENT, data.data)
       })
   },
   [SET_FOCUS_PATIENT] (context, data) {

@@ -5,8 +5,8 @@ import {
   SET_FOCUSED_PATIENT_CASE,
   ADD_CASE,
   SET_FOCUS_CASE,
-  FETCH_CASES,
   UPDATE_FOCUSED_CASE,
+  SET_MEDICAL_CASES,
 } from './actions.type';
 import {
   RESET_STATE,
@@ -57,10 +57,9 @@ export const actions = {
   [SET_FOCUS_CASE] (context, data) {
     return context.commit(SET_FOCUSED_CASE, data);
   },
-  [FETCH_CASES] (context) {
-    // This is under development
-    return context.commit(SET_CASES);
-  }
+  [SET_MEDICAL_CASES] (context, data) {
+    return context.commit(SET_CASES, data)
+  },
 };
 
 export const mutations = {
@@ -85,10 +84,10 @@ export const mutations = {
     }
   },
   [SET_FOCUSED_PATIENT_ID_CASE] (state, id) {
-    state.focusedMedicalCase.Patient_Id = id;
+    Vue.set(state.focusedMedicalCase, 'Patient_Id', id);
   },
   [SET_FOCUSED_CASE] (state, data) {
-    state.focusedMedicalCase = data;
+    Vue.set(state, 'focusedMedicalCase', data);
   },
   [SET_CASES] (state, data) {
     Vue.set(state, 'medicalCases', data);
