@@ -6,7 +6,7 @@
         <v-spacer></v-spacer>
         <v-btn @click="openAddModal" primary>Add</v-btn>
       </v-subheader>
-      <template v-for="(item, index) in focusedPatientMedicalCases">
+      <template v-for="(item, index) in focusedPatientState.cases">
         <v-list-tile
           :key="index"
           @click="openEditModal(item)"
@@ -46,18 +46,20 @@
         methods: {
           openAddModal() {
             console.log("opening modal...");
-            this.$refs.addMedicalCaseModal.openModal();
+            store.dispatch(SET_FOCUS_CASE, null) // This will reset the focused state
+              .then(() => {
+                this.$refs.addMedicalCaseModal.openModal();
+              });
           },
           openEditModal(medicalCase) {
             console.log('opening edit modal...', medicalCase);
-            store.dispatch(SET_FOCUS_CASE, medicalCase);
+            store.dispatch(SET_FOCUS_CASE, medicalCase.Medical_Case_Id);
             this.$refs.editMedicalCaseModal.openModal();
           },
         },
         computed: {
           ...mapGetters([
-            'focusedPatientMedicalCases',
-            'focusedPatient'
+            'focusedPatientState'
           ]),
         }
     }

@@ -14,7 +14,7 @@ import {
 const initialState = {
   alertState: {
     "show": false,
-    "timeout": 200,
+    "timeout": 2000,
     "multi-line": true,
     "color": "success",
     "message": "",
@@ -51,12 +51,6 @@ export const mutations = {
     Vue.set(state.alertState, 'color', 'info');
     Vue.set(state.alertState, 'show', true);
   },
-  [RESET_STATE] () {
-    console.warn("PATIENT STATE IS BEING RESET...");
-    for (let i in state) {
-      Vue.set(state, i, initialState[i])
-    }
-  }
 };
 
 const getters = {

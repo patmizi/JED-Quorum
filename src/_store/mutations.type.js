@@ -16,4 +16,5 @@ export const RESET_FOCUSED_CASE = 'resetFocusedCase';
 export const SET_FOCUSED_PATIENT_ID_CASE = 'setFocusedPatientIdCase';
 export const RESET_MEDICAL_CASES = 'resetMedicalCases';
 
+export const REFRESH_STATE = 'refreshExistingState';
 export const RESET_STATE = 'resetState';

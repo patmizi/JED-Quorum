@@ -5,7 +5,7 @@ import {
   SET_FOCUSED_PATIENT_CASE,
   ADD_CASE,
   SET_FOCUS_CASE,
-  UPDATE_FOCUSED_CASE,
+  UPDATE_CASE,
   SET_MEDICAL_CASES,
 } from './actions.type';
 import {
@@ -47,7 +47,7 @@ export const actions = {
         return context.commit(RESET_FOCUSED_CASE);
       })
   },
-  [UPDATE_FOCUSED_CASE] (context, data) {
+  [UPDATE_CASE] (context, data) {
     console.log('UDPATING CASE: ', data);
     return MedicalCaseService.update(data.Medical_Case_Id, data)
       .then((res) => {

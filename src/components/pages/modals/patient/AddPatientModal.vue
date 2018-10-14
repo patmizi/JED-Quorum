@@ -12,8 +12,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
-        <v-btn color="secondary" flat @click.native="add" :loading="sending">Add</v-btn>
+        <v-btn color="secondary" flat @click.native="dialog = false" :disabled="isSending">Close</v-btn>
+        <v-btn color="secondary" flat @click.native="add" :loading="isSending">Add</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -24,8 +24,6 @@
     import PatientForm from "../../../forms/PatientForm";
     import {
       ADD_PATIENT,
-      RESET_FOCUS_PATIENT,
-      SUCCESS_ALERT,
     } from '../../../../_store/actions.type';
 
     export default {
@@ -36,15 +34,12 @@
         data() {
           return {
             dialog: false,
-            sending: false,
           }
         },
         watch: {
           dialog (val) {
             if(this.$refs && this.$refs.patientForm && val === false) {
-              this.sending = false;
               this.$refs.patientForm.initForm();
-              this.$emit('closemodal');
             }
           }
         },
@@ -52,23 +47,21 @@
           add() {
             console.log('SAVING DATA...');
             if (this.$refs.patientForm.isFormValid()){
-              this.sending = true;
               this.$refs.patientForm.setSubmitState(true);
-              this.$store.dispatch(ADD_PATIENT, this.focusedPatient)
+              this.$store.dispatch(ADD_PATIENT)
                 .then(() => {
                   this.dialog = false;
-                  this.$store.dispatch(SUCCESS_ALERT, 'Added Patient')
                 });
             }
           },
           openModal() {
-            this.$store.dispatch(RESET_FOCUS_PATIENT);
             this.$refs.patientForm.initForm();
           },
         },
         computed: {
           ...mapGetters([
-            'focusedPatient'
+            'focusedPatientState',
+            'isSending',
           ])
         }
     }

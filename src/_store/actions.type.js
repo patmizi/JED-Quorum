@@ -20,8 +20,9 @@ export const ERROR_ALERT = 'alertError';
 export const RESET_FOCUS_CASE = 'resetFocusedMedicalCase';
 export const SET_FOCUS_CASE = 'setFocusedMedicalCase';
 export const ADD_CASE = 'addPatientMedicalCase';
-export const UPDATE_FOCUSED_CASE = 'updateFocusedMedicalCase';
+export const UPDATE_CASE = 'updateFocusedMedicalCase';
 export const SET_FOCUSED_PATIENT_CASE = 'setFocusedPatientIdCase';
 export const SET_MEDICAL_CASES = 'setFocusedPatientCases';
 
+export const STATE_REFRESH = "refreshState";
 export const STATE_RESET = 'resetState';

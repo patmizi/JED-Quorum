@@ -1,10 +1,10 @@
 <template>
   <v-form ref="form" v-model="valid">
     <v-text-field
-      v-model="medicalCaseName"
+      v-model="focusedMedicalCaseState.Medical_Case_Name"
       label="Case Name"
       :rules="[rules.required]"
-      :disabled="sending"
+      :disabled="isSending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
@@ -13,7 +13,7 @@
       disabled
     ></v-text-field>
     <v-select
-      v-model="attachedDoctors"
+      v-model="focusedMedicalCaseState.doctors"
       :items="doctors"
       item-text="First_Name"
       attach
@@ -24,9 +24,9 @@
       return-object
     ></v-select>
     <v-textarea
-      v-model="medicalCaseDescription"
+      v-model="focusedMedicalCaseState.Medical_Case_Description"
       label="Case notes go here"
-      :disabled="sending"
+      :disabled="isSending"
       :rules="[rules.required]"
     ></v-textarea>
   </v-form>
@@ -34,12 +34,6 @@
 
 <script>
     import {mapGetters} from 'vuex';
-    import store from '../../_store';
-    import {
-      RESET_FOCUS_CASE,
-      SET_FOCUSED_PATIENT_CASE,
-      SET_FOCUS_CASE,
-    } from '../../_store/actions.type';
 
     export default {
       name: "MedicalCaseForm",
@@ -49,10 +43,6 @@
               required: value => !!value || 'Required.',
             },
             valid: false,
-            sending: false,
-            medicalCaseName: "",
-            medicalCaseDescription: "",
-            attachedDoctors: [],
           }
         },
         methods: {
@@ -62,49 +52,26 @@
           },
           initForm() {
             this.valid = false;
-            this.sending = false;
-            this.resetFields();
-            store.dispatch(RESET_FOCUS_CASE);
-            store.dispatch(SET_FOCUSED_PATIENT_CASE, this.focusedPatient.Patient_Id)
-              .then(() => {
-                this.medicalCaseName = this.focusedMedicalCase.Medical_Case_Name;
-                this.medicalCaseDescription = this.focusedMedicalCase.Medical_Case_Description;
-                this.attachedDoctors = this.focusedMedicalCase.doctors;
-              });
             this.$refs.form.reset();
-          },
-          resetFields() {
-            this.medicalCaseName = "";
-            this.medicalCaseDescription = "";
-            this.attachedDoctors = [];
           },
           /**
            * Sets the sending state to true or false
            * @param state {Boolean}
            */
           setSubmitState(state) {
-            this.sending = state;
-            if(state === true){
-              let push = {
-                Medical_Case_Id: this.focusedMedicalCase.Medical_Case_Id,
-                Patient_Id: this.focusedPatient.Patient_Id,
-                Medical_Case_Name: this.medicalCaseName,
-                Medical_Case_Description: this.medicalCaseDescription,
-                doctors: this.doctors,
-              };
-              store.dispatch(SET_FOCUS_CASE, push);
-            }
+            console.log('deprecated');
           }
         },
         computed: {
           ...mapGetters([
-            'focusedMedicalCase',
-            'focusedPatient',
+            'focusedMedicalCaseState',
+            'focusedPatientState',
             'doctors',
+            'isSending',
           ]),
           patientFullName: function() {
-            console.log('focused patient in compute: ', this.focusedPatient);
-            return this.focusedPatient.First_Name + ' ' + this.focusedPatient.Last_Name
+            console.log('focused patient in compute: ', this.focusedPatientState);
+            return this.focusedPatientState.First_Name + ' ' + this.focusedPatientState.Last_Name
           },
         },
     }

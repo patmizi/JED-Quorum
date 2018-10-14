@@ -20,7 +20,7 @@
                 <MedicalCaseList ref="medicalCaseList"></MedicalCaseList>
               </v-tab-item>
               <v-tab-item :key="'2'" :id="'tab-2'">
-                <AppointmentHistory ref="appointmentHistory"></AppointmentHistory>
+                <!--<AppointmentHistory ref="appointmentHistory"></AppointmentHistory>-->
               </v-tab-item>
             </v-tabs-items>
           </v-flex>
@@ -29,8 +29,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
-        <v-btn color="secondary" flat @click.native="edit" :loading="sending">Save</v-btn>
+        <v-btn color="secondary" flat @click.native="dialog = false" :disabled="isSending">Close</v-btn>
+        <v-btn color="secondary" flat @click.native="edit" :loading="isSending">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -41,7 +41,7 @@
     import PatientForm from "../../../forms/PatientForm";
     import MedicalCaseList from '../../../etc/MedicalCaseList';
     import AppointmentHistory from '../../../etc/AppointmentHistory';
-    import {UPDATE_PATIENT, SUCCESS_ALERT, SET_MEDICAL_CASES, FETCH_PATIENTS, REFRESH_FOCUSED_PATIENT} from '../../../../_store/actions.type';
+    import {UPDATE_PATIENT, FETCH_PATIENTS} from '../../../../_store/actions.type';
     export default {
         name: "EditPatientModal",
         components: {
@@ -52,14 +52,12 @@
         data() {
           return {
             dialog: false,
-            sending: false,
             activeTab: "1",
           }
         },
         watch: {
           dialog (val) {
             if(this.$refs && this.$refs.patientForm && val === false) {
-              this.sending = false;
               this.$refs.patientForm.initForm();
               this.$store.dispatch(FETCH_PATIENTS);
             }
@@ -69,27 +67,20 @@
           edit() {
             console.log('SAVING DATA...');
             if (this.$refs.patientForm.isFormValid()) {
-              this.sending = true;
-              this.$refs.patientForm.setSubmitState(true);
-              this.$store.dispatch(UPDATE_PATIENT, this.focusedPatient)
+              this.$store.dispatch(UPDATE_PATIENT)
                 .then(() => {
                   this.dialog = false;
-                  this.$store.dispatch(SUCCESS_ALERT, 'Edited Patient Information')
                 })
             }
           },
           openModal() {
             this.dialog = true;
-            console.log("patient cases: ", this.focusedPatient.cases);
-            this.$store.dispatch(REFRESH_FOCUSED_PATIENT, this.focusedPatient.Patient_Id)
-              .then(() => {
-                this.$store.dispatch(SET_MEDICAL_CASES, this.focusedPatient.cases);
-              });
           },
         },
         computed: {
           ...mapGetters([
-            'focusedPatient'
+            'focusedPatientState',
+            'isSending',
           ])
         }
     }

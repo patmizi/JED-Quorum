@@ -9,8 +9,8 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" flat @click.native="dialog = false" :disabled="sending">Close</v-btn>
-        <v-btn color="secondary" flat @click.native="edit" :loading="sending">Update</v-btn>
+        <v-btn color="secondary" flat @click.native="dialog = false" :disabled="isSending">Close</v-btn>
+        <v-btn color="secondary" flat @click.native="edit" :loading="isSending">Update</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -20,12 +20,8 @@
   import {mapGetters} from 'vuex';
   import MedicalCaseForm from '../../../forms/MedicalCaseForm';
   import {
-    RESET_FOCUS_CASE,
-    SUCCESS_ALERT,
-    UPDATE_FOCUSED_CASE,
-    REFRESH_FOCUSED_PATIENT,
+    UPDATE_CASE,
   } from '../../../../_store/actions.type';
-  import store from '../../../../_store';
 
   export default {
     name: "EditMedicalCaseModal",
@@ -34,17 +30,13 @@
       dialog (val) {
         if(this.$refs && this.$refs.medicalCaseForm && val === false) {
           console.log('Reset form here...');
-          this.sending = false;
           this.$refs.medicalCaseForm.initForm();
-          store.dispatch(RESET_FOCUS_CASE);
-          store.dispatch(REFRESH_FOCUSED_PATIENT, this.focusedPatient.Patient_Id);
         }
       }
     },
     data() {
       return {
         dialog: false,
-        sending: false,
       }
     },
     methods: {
@@ -55,20 +47,20 @@
         console.log('SAVING DATA...');
         if (this.$refs.medicalCaseForm.isFormValid()){
           this.sending = true;
-          this.$refs.medicalCaseForm.setSubmitState(true);
-          console.log("Adding focusedMedicalCase: ", this.focusedMedicalCase);
-          this.$store.dispatch(UPDATE_FOCUSED_CASE, this.focusedMedicalCase, this.focusedMedicalCase.Medical_Case_Id)
+          console.log("Adding focusedMedicalCase: ", this.focusedMedicalCaseState);
+          console.log("This is the focused patient state: ", this.focusedPatientState);
+          this.$store.dispatch(UPDATE_CASE)
             .then(() => {
               this.dialog = false;
-              this.$store.dispatch(SUCCESS_ALERT, 'Added Patient')
             });
         }
       }
     },
     computed: {
       ...mapGetters([
-        'focusedMedicalCase',
-        'focusedPatient'
+        'focusedMedicalCaseState',
+        'focusedPatientState',
+        'isSending',
       ])
     }
   }

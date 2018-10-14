@@ -6,12 +6,11 @@
         <v-divider class="mx-2" inset vertical></v-divider>
         <v-spacer></v-spacer>
         <AddPatientModal ref="addPatientModal" v-on:closemodal="initialize"></AddPatientModal>
-        <!--<v-btn @click="test">REFRESH</v-btn>-->
       </v-toolbar>
       <v-data-table
         :headers="headers"
-        :items="patients"
-        :loading="loading"
+        :items="patientList"
+        :loading="isSending"
         hide-actions
         class="elevation-1"
       >
@@ -43,7 +42,7 @@
 
 <script>
     import {mapGetters} from 'vuex';
-    import { FETCH_PATIENTS, SET_FOCUS_PATIENT, RESET_FOCUS_PATIENT, STATE_RESET, SUCCESS_ALERT } from '../../../_store/actions.type';
+    import { FETCH_PATIENTS, SET_FOCUS_PATIENT } from '../../../_store/actions.type';
     import store from '../../../_store';
 
     import EditPatientModal from '../modals/patient/EditPatientModal';
@@ -59,7 +58,6 @@
       },
       data() {
         return {
-          dialog: false,
           headers: [
             { text: 'Patient ID',  align: 'left', sortable: true, value: 'Patient_Id' },
             { text: 'First Name', sortable: true, value: 'First_Name'},
@@ -68,31 +66,25 @@
             { text: 'Actions', value: 'Patient_Id' }
           ],
           editedIndex: -1,
-          loading: false
         }
       },
       created() {
-          store.dispatch(STATE_RESET)
-            .then(() => {
-              this.initialize()
-            });
+          this.initialize();
       },
       methods: {
         initialize() {
-          this.loading = true;
           console.log("Initializing");
           Promise.all([
             store.dispatch(FETCH_PATIENTS)
           ]).then(() => {
             console.log("All actions have been finished...;");
-            this.loading = false;
           })
         },
         editPatient(patient) {
           console.log("EDIT PATIENT: ", patient);
-          store.dispatch(RESET_FOCUS_PATIENT);
           if(this.$refs && this.$refs.editPatientModal && patient.Patient_Id){
-            store.dispatch(SET_FOCUS_PATIENT, patient)
+            console.log('setting the focus patient: ', patient.Patient_Id);
+            store.dispatch(SET_FOCUS_PATIENT, patient.Patient_Id)
               .then(() => {
                 this.$refs.editPatientModal.openModal();
               });
@@ -101,19 +93,16 @@
           }
         },
         deletePatient(patient) {
-          console.log("DELETE PATIENT: ", patient);
-          store.dispatch(SET_FOCUS_PATIENT, patient)
+          store.dispatch(SET_FOCUS_PATIENT, patient.Patient_Id)
             .then(() => {
               this.$refs.deletePatientModal.openModal();
             });
         },
-        test(){
-          store.dispatch(SUCCESS_ALERT, 'SUCCESS')
-        }
       },
       computed: {
         ...mapGetters([
-          'patients',
+          'patientList',
+          'isSending'
         ])
       }
     }
