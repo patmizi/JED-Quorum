@@ -31,7 +31,7 @@
       watch: {
           dialog (val) {
             if(this.$refs && this.$refs.medicalCaseForm && val === false) {
-              this.$refs.medicalCaseForm.initForm();
+              // this.$refs.medicalCaseForm.initForm();
               store.dispatch(SET_FOCUS_CASE, null); // This will reset the focused case just in case
             }
           }

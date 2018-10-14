@@ -32,7 +32,6 @@
     import AddMedicalCaseModal from '../pages/modals/cases/AddMedicalCaseModal';
     import EditMedicalCaseModal from '../pages/modals/cases/EditMedicalCaseModal';
     import {SET_FOCUS_CASE} from '../../_store/actions.type';
-    import store from '../../_store';
 
     export default {
         name: "MedicalCaseList",
@@ -46,14 +45,14 @@
         methods: {
           openAddModal() {
             console.log("opening modal...");
-            store.dispatch(SET_FOCUS_CASE, null) // This will reset the focused state
+            this.$store.dispatch(SET_FOCUS_CASE, null) // This will reset the focused state
               .then(() => {
                 this.$refs.addMedicalCaseModal.openModal();
               });
           },
           openEditModal(medicalCase) {
             console.log('opening edit modal...', medicalCase);
-            store.dispatch(SET_FOCUS_CASE, medicalCase.Medical_Case_Id);
+            this.$store.dispatch(SET_FOCUS_CASE, medicalCase.Medical_Case_Id);
             this.$refs.editMedicalCaseModal.openModal();
           },
         },

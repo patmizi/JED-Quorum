@@ -21,6 +21,7 @@
   import MedicalCaseForm from '../../../forms/MedicalCaseForm';
   import {
     UPDATE_CASE,
+    SET_FOCUS_CASE,
   } from '../../../../_store/actions.type';
 
   export default {
@@ -30,7 +31,8 @@
       dialog (val) {
         if(this.$refs && this.$refs.medicalCaseForm && val === false) {
           console.log('Reset form here...');
-          this.$refs.medicalCaseForm.initForm();
+          // this.$refs.medicalCaseForm.initForm();
+          store.dispatch(SET_FOCUS_CASE, null);
         }
       }
     },

@@ -1,4 +1,5 @@
 export function Address(addressObj) {
+  console.log("address obj: ", addressObj);
   this.Suburb = addressObj.Suburb || addressObj.locality || null;
   this.Country = addressObj.Country || addressObj.country || null;
   this.State = addressObj.State || addressObj.administrative_area_level_1 || null;
