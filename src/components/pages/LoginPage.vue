@@ -9,7 +9,7 @@
               <v-img
                 :src="logo"
                 max-width="150px"
-                style="position: relative;top: 20%;left:32%"
+                style="position: relative;top: 20%;left:38%"
               ></v-img>
               <v-container style="position: relative;top: 20%;" class="text-xs-center">
                 <v-card flat>
