@@ -1,17 +1,19 @@
 <template>
   <div>
     <v-container>
-      <v-toolbar color="primary">
-        <v-icon style="margin-left: 37%;">assignment</v-icon>
-        <v-toolbar-title>Doctor Case Management System</v-toolbar-title>
-     </v-toolbar>
       <v-layout row class="text-xs-center" style="margin-top: 5%; margin-left: 20%; margin-right: 20%;">
-        <v-flex xs0 sm2></v-flex>
-        <v-flex xs12 sm8>
+        <v-flex xs0 sm1></v-flex>
+        <v-flex xs12 sm10>
           <v-card flat>
             <v-layout>
-              <v-flex xs1 md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg'); margin-right: 10px;">
-                <v-card :height="matchFormHeight"></v-card>
+              <v-flex xs1 md2 style="margin-right: 10px;" class="image-container">
+                <v-card :height="matchFormHeight">
+                  <v-img
+                    src="http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg"
+                    width="100%"
+                    height="100%"
+                  ></v-img>
+                </v-card>
               </v-flex>
               <v-flex>
                 <span ref="formContainer">
@@ -41,7 +43,7 @@
             </v-layout>
           </v-card>
         </v-flex>
-        <v-flex xs0 sm2></v-flex>
+        <v-flex xs0 sm1></v-flex>
       </v-layout>
     </v-container>
   </div>
@@ -108,5 +110,7 @@
 </script>
 
 <style scoped>
-
+  .image-container {
+    background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')
+  }
 </style>
