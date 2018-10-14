@@ -31,7 +31,7 @@
     import { mapGetters } from 'vuex';
     import AddMedicalCaseModal from '../pages/modals/cases/AddMedicalCaseModal';
     import EditMedicalCaseModal from '../pages/modals/cases/EditMedicalCaseModal';
-    import {SET_FOCUS_CASE, FETCH_CASES, RESET_FOCUS_CASE} from '../../_store/actions.type';
+    import {SET_FOCUS_CASE} from '../../_store/actions.type';
     import store from '../../_store';
 
     export default {
@@ -39,12 +39,6 @@
         components: {
           AddMedicalCaseModal,
           EditMedicalCaseModal,
-        },
-        created() {
-          store.dispatch(RESET_FOCUS_CASE)
-            .then(() => {
-              this.initialize()
-            });
         },
         data() {
           return {}
@@ -59,20 +53,11 @@
             store.dispatch(SET_FOCUS_CASE, medicalCase);
             this.$refs.editMedicalCaseModal.openModal();
           },
-          initialize() {
-            this.loading = true;
-            console.log("Initializing");
-            Promise.all([
-              store.dispatch(FETCH_CASES)
-            ]).then(() => {
-              console.log("All actions have been finished...;");
-              this.loading = false;
-            })
-          },
         },
         computed: {
           ...mapGetters([
-            'focusedPatientMedicalCases'
+            'focusedPatientMedicalCases',
+            'focusedPatient'
           ]),
         }
     }

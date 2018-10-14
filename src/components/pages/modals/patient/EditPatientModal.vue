@@ -41,7 +41,7 @@
     import PatientForm from "../../../forms/PatientForm";
     import MedicalCaseList from '../../../etc/MedicalCaseList';
     import AppointmentHistory from '../../../etc/AppointmentHistory';
-    import {UPDATE_PATIENT, SUCCESS_ALERT, FETCH_CASES} from '../../../../_store/actions.type';
+    import {UPDATE_PATIENT, SUCCESS_ALERT, SET_MEDICAL_CASES, FETCH_PATIENTS, REFRESH_FOCUSED_PATIENT} from '../../../../_store/actions.type';
     export default {
         name: "EditPatientModal",
         components: {
@@ -61,7 +61,7 @@
             if(this.$refs && this.$refs.patientForm && val === false) {
               this.sending = false;
               this.$refs.patientForm.initForm();
-              this.$emit('closemodal');
+              this.$store.dispatch(FETCH_PATIENTS);
             }
           }
         },
@@ -80,7 +80,11 @@
           },
           openModal() {
             this.dialog = true;
-            this.$store.dispatch(FETCH_CASES);
+            console.log("patient cases: ", this.focusedPatient.cases);
+            this.$store.dispatch(REFRESH_FOCUSED_PATIENT, this.focusedPatient.Patient_Id)
+              .then(() => {
+                this.$store.dispatch(SET_MEDICAL_CASES, this.focusedPatient.cases);
+              });
           },
         },
         computed: {
