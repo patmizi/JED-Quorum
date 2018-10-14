@@ -1,18 +1,16 @@
 <template>
   <v-container>
-    <v-toolbar color="primary">
-      <v-icon style="margin-left: 37%;">assignment</v-icon>
-      <v-toolbar-title>Doctor Case Management System</v-toolbar-title>
-    </v-toolbar>
-    <v-layout row class="text-xs-center" style="margin-top: 5%; margin-left: 20%; margin-right: 20%;">
+    <v-layout row class="text-xs-center" style="margin-top: 20%; margin-left: 20%; margin-right: 20%;">
       <v-flex></v-flex>
       <v-flex sm8>
-        <v-card flat>
+        <v-card style="padding-bottom: 20%">
           <v-layout>
-            <v-flex md2 style="background-image: url('http://cdn.wallpapersafari.com/7/86/gqiGH7.jpg')">
-              <v-card height="555"></v-card>
-            </v-flex>
             <v-flex>
+              <v-img
+                :src="logo"
+                max-width="150px"
+                style="position: relative;top: 20%;left:32%"
+              ></v-img>
               <v-container style="position: relative;top: 20%;" class="text-xs-center">
                 <v-card flat>
                   <v-card-title primary-title>
@@ -46,6 +44,7 @@
 <script>
   import {mapState, mapActions} from 'vuex'
   import LoginForm from '../forms/LoginForm';
+  import logo from '../../assets/logo.png';
 
   export default {
     name: "LoginPage",
@@ -57,7 +56,7 @@
         loginError: false,
         loginErrorMessage: "",
         sending: false,
-
+        logo: logo,
       }
     },
     mounted() {
@@ -79,7 +78,7 @@
           }).catch((err) => {
             console.log("Error when logging in: ", err);
             this.$refs.loginForm.setSubmitState(false);
-            this.sending = false
+            this.sending = false;
             this.$refs.loginForm.failLogin();
           })
         }

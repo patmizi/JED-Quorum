@@ -22,6 +22,7 @@
     "passport-oauth": "^1.0.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.4",
+    "vue-progressive-image": "^3.1.0",
     "vue-router": "^3.0.1",
     "vuetify": "^1.2.9",
     "vuetify-google-autocomplete": "^2.0.0-beta.5",
