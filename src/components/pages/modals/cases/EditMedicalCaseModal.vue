@@ -32,7 +32,7 @@
         if(this.$refs && this.$refs.medicalCaseForm && val === false) {
           console.log('Reset form here...');
           // this.$refs.medicalCaseForm.initForm();
-          store.dispatch(SET_FOCUS_CASE, null);
+          this.$store.dispatch(SET_FOCUS_CASE, null);
         }
       }
     },

@@ -13,15 +13,15 @@
           <v-flex s6 class="grid-col">
             <v-tabs v-model="activeTab">
               <v-tab :key="'1'" ripple>Medical Cases</v-tab>
-              <v-tab :key="'2'" ripple>Appointment History</v-tab>
+              <!--<v-tab :key="'2'" ripple>Appointment History</v-tab>-->
             </v-tabs>
             <v-tabs-items v-model="activeTab">
               <v-tab-item :key="'1'" :id="'tab-1'">
                 <MedicalCaseList ref="medicalCaseList"></MedicalCaseList>
               </v-tab-item>
-              <v-tab-item :key="'2'" :id="'tab-2'">
-                <!--<AppointmentHistory ref="appointmentHistory"></AppointmentHistory>-->
-              </v-tab-item>
+              <!--<v-tab-item :key="'2'" :id="'tab-2'">-->
+                <!--&lt;!&ndash;<AppointmentHistory ref="appointmentHistory"></AppointmentHistory>&ndash;&gt;-->
+              <!--</v-tab-item>-->
             </v-tabs-items>
           </v-flex>
         </v-layout>
