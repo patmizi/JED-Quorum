@@ -105,12 +105,12 @@
         computed: {
           fullName: function() {
             if(this.$store.state.authentication && this.$store.state.authentication.user && this.$store.state.authentication.user){
-              return this.$store.state.authentication.user.full_name;
+              return this.$store.state.authentication.user.Full_Name;
             }
             return "User";
           },
           profTitle: function() {
-            if(this.$store.state.authentication.user && this.$store.state.authentication.user && this.$store.state.authentication.user.business_role === "doctor"){
+            if(this.$store.state.authentication.user && this.$store.state.authentication.user && this.$store.state.authentication.user.Business_Role === "doctor"){
               return "Dr. ";
             }
             return "";
