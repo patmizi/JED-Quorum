@@ -27,7 +27,7 @@ Vue.use(Vuetify, {
 });
 
 Vue.use(VuetifyGoogleAutocomplete, {
-  apiKey: 'AIzaSyByzx6r7ToJ798jB27XJelSZdFctqCFWsc',
+  apiKey: '',
 });
 
 
