@@ -1,33 +1,33 @@
 <template>
   <v-form ref="form" v-model="valid">
     <v-text-field
-      v-model="focusedPatient.First_Name"
+      v-model="focusedPatientState.First_Name"
       label="First Name"
       :rules="[rules.required]"
-      :disabled="sending"
+      :disabled="isSending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
-      v-model="focusedPatient.Last_Name"
+      v-model="focusedPatientState.Last_Name"
       label="Last Name"
       :rules="[rules.required]"
-      :disabled="sending"
+      :disabled="isSending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
       ref="dateOfBirth"
-      v-model="focusedPatient.Date_Of_Birth"
+      v-model="focusedPatientState.Date_Of_Birth"
       label="Date Of Birth"
       :rules="[rules.required]"
-      :disabled="sending"
+      :disabled="isSending"
       mask="##/##/####"
       hint="DD/MM/YYYY"
       validate-on-blur
       return-masked-value
     ></v-text-field>
     <v-radio-group
-      v-model="focusedPatient.Gender"
-      :disabled="sending"
+      v-model="focusedPatientState.Gender"
+      :disabled="isSending"
       :rules="[rules.required]"
       label="Gender"
     >
@@ -47,17 +47,17 @@
       </v-layout>
     </v-radio-group>
     <v-text-field
-      v-model="focusedPatient.Contact_Number"
+      v-model="focusedPatientState.Contact_Number"
       label="Mobile Number"
       :rules="[rules.required]"
-      :disabled="sending"
+      :disabled="isSending"
       validate-on-blur
     ></v-text-field>
     <v-text-field
-      v-model="focusedPatient.Email"
+      v-model="focusedPatientState.Email"
       label="E-mail"
       :rules="[rules.required, rules.validEmail]"
-      :disabled="sending"
+      :disabled="isSending"
       validate-on-blur
     ></v-text-field>
 
@@ -65,8 +65,9 @@
       id="map"
       append-icon="search"
       placeholder="Search Address"
+      label="Address"
       v-on:placechanged="onSelectAddress"
-      :disabled="sending"
+      :disabled="isSending"
       :value="addressText"
     ></vuetify-google-autocomplete>
   </v-form>
@@ -76,17 +77,12 @@
     import { mapGetters } from 'vuex';
     import { emailRegex } from "../../lib/helpers/constants";
     import { Address } from "../../lib/models/address";
-    import {
-      RESET_FOCUS_PATIENT,
-    } from '../../_store/actions.type';
-    import store from '../../_store';
 
     export default {
       name: "PatientForm",
       data() {
           return {
             valid: false,
-            sending: false,
             rules: {
               required: value => !!value || 'Required.',
               validEmail: e => emailRegex.test(e) || 'Please enter a valid email address',
@@ -96,18 +92,16 @@
       methods: {
           onSelectAddress(address) {
             if(address !== null && address !== undefined) {
-              this.focusedPatient.address = new Address(address).asQuorum();
+              this.focusedPatientState.address = new Address(address).asQuorum();
             }
           },
           isFormValid() {
             this.$refs.form.validate();
-            console.log("FOCUSED PATIENT STATE: ", this.focusedPatient);
+            console.log("FOCUSED PATIENT STATE: ", this.focusedPatientState);
             return this.valid;
           },
           initForm() {
             this.valid = false;
-            this.sending = false;
-            store.dispatch(RESET_FOCUS_PATIENT);
             this.$refs.form.reset();
           },
           /**
@@ -115,15 +109,16 @@
            * @param state {Boolean}
            */
           setSubmitState(state) {
-            this.sending = state;
+            console.log('Deprectaed');
           }
       },
       computed: {
           ...mapGetters([
-            'focusedPatient'
+            'focusedPatientState',
+            'isSending',
           ]),
           addressText: function() {
-            return new Address(this.focusedPatient.address).toString();
+            return new Address(this.focusedPatientState.address).toString();
           }
       }
     }

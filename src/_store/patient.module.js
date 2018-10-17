@@ -7,8 +7,9 @@ import {
   SET_FOCUS_PATIENT,
   RESET_FOCUS_PATIENT,
   DELETE_PATIENT,
-  STATE_RESET,
   UPDATE_PATIENT,
+  STATE_RESET,
+  REFRESH_FOCUSED_PATIENT,
 } from './actions.type';
 import {
   SET_PATIENTS,
@@ -28,8 +29,9 @@ const initialState = {
     "Gender": "",
     "Last_Name": "",
     "address": {},
+    "cases": []
   },
-  patients: []
+  patients: [],
 };
 
 export const state = Object.assign({}, initialState);
@@ -44,12 +46,19 @@ export const actions = {
         return data.data;
       })
   },
+  [REFRESH_FOCUSED_PATIENT] (context, id) {
+    return PatientService.get(id)
+      .then((data) => {
+        context.commit(SET_FOCUS_PATIENT, data.data);
+        return data.data;
+      })
+  },
   [FOCUS_PATIENT] (context, id) {
     return PatientService.get(id)
       .then((data) => {
         console.log("GET PATIENT: ", data);
         // We should be getting an array but we only want the first element
-        context.commit(SET_FOCUSED_PATIENT, data.data[0])
+        context.commit(SET_FOCUSED_PATIENT, data.data)
       })
   },
   [SET_FOCUS_PATIENT] (context, data) {
@@ -76,14 +85,12 @@ export const actions = {
       })
   },
   [UPDATE_PATIENT] (context, data) {
-    console.log('updating patient with data: ', data);
-    if(data.Patient_Id !== null && data.Patient_Id !== undefined) {
-      return PatientService.update(data.Patient_Id, data)
-        .then((res) => {
-          console.log('Got response... ', res);
-          return context.commit(RESET_FOCUSED_PATIENT_STATE);
-        })
-    }
+    console.log('We are updating a patient with data: ', data);
+    return PatientService.update(data.Patient_Id, data)
+      .then((res) => {
+        console.log('We successfully updated a patient: ', res);
+        return context.commit(RESET_FOCUSED_PATIENT_STATE);
+      })
   },
   [STATE_RESET] (context) {
     return context.commit(RESET_STATE);
@@ -119,7 +126,7 @@ const getters = {
   },
   focusedPatient(state) {
     return state.focusedPatient;
-  }
+  },
 };
 
 export default {

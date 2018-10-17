@@ -84,6 +84,7 @@
     <user-settings-modal
       ref="settingsModal"
     ></user-settings-modal>
+    <AlertComponent></AlertComponent>
   </v-app>
 </template>
 
@@ -93,6 +94,7 @@
     import DashboardDoctorsRegistry from './dashboardContent/DashboardDoctorsRegistry';
     import DashboardPatientRegistry from './dashboardContent/DashboardPatientRegistry';
     import UserSettingsModal from './modals/UserSettingsModal';
+    import AlertComponent from './modals/AlertComponent';
 
     export default {
         name: "DashboardPage",
@@ -101,6 +103,7 @@
           DashboardDoctorsRegistry,
           DashboardPatientRegistry,
           'user-settings-modal': UserSettingsModal,
+          AlertComponent,
         },
         computed: {
           fullName: function() {

@@ -2,7 +2,7 @@
   <span>
     <div id="app">
       <router-view/>
-      <v-app style="height: 0px; width: 0px"></v-app>
+      <v-app style="height: 0px; width: 0px;"></v-app>
     </div>
   </span>
 </template>
@@ -20,6 +20,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /*background-color: #F8F9F9;*/
+  height: 100%;
 }
 </style>
