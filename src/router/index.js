@@ -56,13 +56,13 @@ export default new Router({
       path: '/dashboard',
       name: 'Account Dashboard',
       component: DashboardPage,
-      beforeEnter: authenticationCheck
+      // beforeEnter: authenticationCheck
     },
     {
       path: '/postregistration',
       name: 'Post Registration',
       component: PostRegistrationPage,
-      beforeEnter: postRegistrationCheck
+      // beforeEnter: postRegistrationCheck
     },
     {
       path: '*', //default route
